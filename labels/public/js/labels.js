@@ -14,13 +14,10 @@ frappe.ui.form.on("Production Plan", {
     }
 });
 
-// frappe.ui.form.on("Production Plan", {
-//     onload: function (frm) {
-//         let btn = document.createElement('a');
-//         btn.innerText = 'Refresh';
-//         btn.className = 'grid-upload btn btn-xs btn-default';
-//         frm.fields_dict.items.grid.wrapper.find('.grid-upload').removeClass('hide').parent().append(btn);
-//         btn.addEventListener("click", function () {
-//         });
-//     }
-// })
+frm.add_custom_button(__('Download'), function () {
+    var file_url = frm.doc.file_url;
+    if (frm.doc.file_name) {
+        file_url = file_url.replace(/#/g, '%23');
+    }
+    window.open(file_url);
+}, "fa fa-download");

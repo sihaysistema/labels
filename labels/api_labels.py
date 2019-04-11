@@ -28,22 +28,21 @@ def child_table_to_csv(dict_data):
         with open(csv_file, 'w') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=csv_columns)
             writer.writeheader()
+
             for data in dict_data_csv:
                 writer.writerow(data)
+
     except IOError:
         frappe.msgprint(_('ERROR'))
     else:
         frappe.msgprint(_('OK'))
 
-    # frappe.msgprint(_(str(data)))
-
-    # [{"modified_by":"Administrator",
-    # "name":"16f3fc204b",
-    # "parent":"MFG-PP-2019-00001",
-    # "creation":"2019-04-10 16:28:26.018175",
-    # "modified":"2019-04-10 16:28:57.793399",
-    # "item_code":"CAJA-CRAYONES-001",
-    # "min_order_qty":0,
-    # "idx":1,
-    # "parenttype":"Production Plan","warehouse":"Todos los Almacenes - S",
-    # "doctype":"Material Request Plan Item","owner":"Administrator","docstatus":1,"quantity":2,"requested_qty":0,"actual_qty":0,"parentfield":"mr_items"}]
+    ## required columns
+    # Item Code : ok
+    # Description : add custom field
+    # Stock UOM : ok
+    # Required Qty : custom field?
+    # Warehouse : ok
+    # Quantity Requested for Purchase : custom field ?
+    # Ordered Qty : ok
+    # Actual Qty : ok
