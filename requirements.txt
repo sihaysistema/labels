@@ -1,4 +1,4 @@
 frappe
 reportlab
-pybarcode
+pyBarcode
 babel

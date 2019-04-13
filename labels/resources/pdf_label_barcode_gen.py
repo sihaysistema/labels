@@ -88,7 +88,7 @@ from HTMLParser import HTMLParser
 #######################################################################################
 
 # 2.1 Variables of file and data ot open
-fileName_w_ext = "ProductionPlanningTool.csv"
+fileName_w_ext = "salida.csv"
 accessModeUniv_nl = "rU"
 accessMode_W = "w"
 accessMode_WB = "wb"
@@ -145,7 +145,7 @@ html_span_open = "<span>"
 html_span_close = "</span>"
 font_path = "fonts/"
 load_font_roboto = font_path + "roboto/Roboto-Regular.ttf"
-image_logo_filename = './assets/fogliasana-logo-peq-etiq-cod-barras-negro.jpg'
+image_logo_filename = '../images/fogliasana-logo-peq-etiq-cod-barras-negro.jpg'
 clear_command_line = os.system('cls' if os.name == 'nt' else 'clear')
 clear_command_line
 
@@ -1130,14 +1130,14 @@ with open (fileName_w_ext, accessModeUniv_nl) as csvFileContents:
 #   16. BEGIN CALL Create51mmx38mmlabel function
 #
 #######################################################################################
-    if __name__ == "__main__":
-        create51mmx38mmlabels()
-        ###############################################################################
-        #
-        #   16.1 Show success message!
-        #
-        ###############################################################################
-        end_datetime = format_datetime(datetime.datetime.now(), "yyyy.MMMdd  kk:mm:ss", locale='es_GT')
-        
-        print("Success! Finished processing at " + end_datetime + ". Please search for the file")
-        #print a_tilde_utf + space + e_tilde_utf + space + i_tilde_utf + space + o_tilde_utf + space + u_tilde_utf + space + n_enie_utf + space + percent_utf + space + registered_utf + space + copyright_utf
+    # if __name__ == "__main__":
+    #     create51mmx38mmlabels()
+    #     ###############################################################################
+    #     #
+    #     #   16.1 Show success message!
+    #     #
+    #     ###############################################################################
+    #     end_datetime = format_datetime(datetime.datetime.now(), "yyyy.MMMdd  kk:mm:ss", locale='es_GT')
+
+    #     print("Success! Finished processing at " + end_datetime + ". Please search for the file")
+    #     #print a_tilde_utf + space + e_tilde_utf + space + i_tilde_utf + space + o_tilde_utf + space + u_tilde_utf + space + n_enie_utf + space + percent_utf + space + registered_utf + space + copyright_utf
