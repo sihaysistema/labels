@@ -6,18 +6,18 @@ frappe.ui.form.on("Production Plan", {
                 args: {
                     dict_data: cur_frm.doc.mr_items
                 },
-                callback: function () {
-                    // frm.reload_doc();
+                callback: function (r) {
+                    window.open(r.message);
                 }
             });
         }).addClass("btn-primary");
 
-        frm.add_custom_button(__('Download'), function () {
-            var file_url = frm.doc.file_url;
-            if (frm.doc.file_name) {
-                file_url = file_url.replace(/#/g, '%23');
-            }
-            window.open(file_url);
-        }, "fa fa-download");
+        // frm.add_custom_button(__('Download'), function () {
+        //     var file_url = frm.doc.file_url;
+        //     if (frm.doc.file_name) {
+        //         file_url = file_url.replace(/#/g, '%23');
+        //     }
+        //     window.open(file_url);
+        // }, "fa fa-download");
     }
 });

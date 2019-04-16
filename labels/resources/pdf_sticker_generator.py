@@ -5,7 +5,9 @@ from frappe import _
 
 import csv
 import json
+import hashlib, base64
 import datetime, string, csv
+from six import text_type, PY2, string_types
 
 import barcode
 from frappe.utils import get_site_name
@@ -488,7 +490,8 @@ def crear_etiqueta(all_unique_labels_lst):
 
     # 10.3 Destination Filename Variable that includes dates
     file_datetime = format_datetime(datetime.datetime.now(), "yyyy-MM-dd-kk-mm-ss", locale='es_GT')
-    date_time_fileName_PDF_w_ext = file_datetime + dash + dest_filename + dot_pdf
+    # date_time_fileName_PDF_w_ext = file_datetime + dash + dest_filename + dot_pdf
+    date_time_fileName_PDF_w_ext = 'stickers-barcode.pdf'
     #######################################################################################
     #
     #   11. Currency formatting
@@ -736,4 +739,41 @@ def crear_etiqueta(all_unique_labels_lst):
         frappe.create_folder(ruta_archivo)
         PDFcanvas.save()
 
-    return 'OK'
+    estado_guardar = guardar_sticker_pdf(ruta_archivo, str(date_time_fileName_PDF_w_ext))
+
+    return estado_guardar
+
+
+def guardar_sticker_pdf(ruta_archivo, nombre_archivo):
+
+    bytes_archivo = os.path.getsize((str(ruta_archivo) + str(nombre_archivo)))
+    url_directorio_archivo = '/private/files/stickers-barcode/{0}'.format(str(nombre_archivo))
+
+    try:
+        nuevo_archivo = frappe.new_doc("File")
+        nuevo_archivo.docstatus = 0
+        nuevo_archivo.file_name = str(nombre_archivo)
+        nuevo_archivo.file_url = url_directorio_archivo
+        nuevo_archivo.attached_to_name = str(nombre_archivo)
+        nuevo_archivo.file_size = bytes_archivo
+        # nuevo_archivo.attached_to_doctype = 'Sales Invoice'
+        # nuevo_archivo.content_hash = get_content_hash(url_directorio_archivo)
+        nuevo_archivo.is_home_folder = 0
+        nuevo_archivo.if_folder = 0
+        nuevo_archivo.folder = 'Home/attachments'
+        nuevo_archivo.is_private = 1
+        nuevo_archivo.old_parent = 'Home/attachments'
+        nuevo_archivo.save()
+    except:
+        frappe.msgprint(_('''Error no se pudo guardar PDF de stickers en la
+                            base de datos. Intente de nuevo.'''))
+    else:
+        return url_directorio_archivo
+
+# def get_content_hash(content):
+#     filedata = content.rsplit(",", 1)[1]
+#     uploaded_content = base64.b64decode(filedata)
+
+#     if isinstance(uploaded_content, text_type):
+#         content = uploaded_content.encode()
+#     return hashlib.md5(content).hexdigest()
