@@ -8,6 +8,7 @@ import json
 import datetime, string, csv
 
 import barcode
+from frappe.utils import get_site_name
 
 # 1.2.2.1 Reportlab Graphics
 # from reportlab.graphics.barcode import code39, code128, code93, qr, usps
@@ -53,6 +54,8 @@ def crear_etiqueta(all_unique_labels_lst):
     #   2. File Opening and Formatting variables
     #
     #######################################################################################
+    nombre_de_sitio = get_site_name(frappe.local.site)
+    ruta_archivo = '{0}/private/files/stickers-barcode/'.format(nombre_de_sitio)
 
     # 2.1 Variables of file and data ot open
     fileName_w_ext = "salida.csv"
@@ -576,7 +579,7 @@ def crear_etiqueta(all_unique_labels_lst):
     Create a PDFCanvas object where we will deposit all the  elements of the PDF. drawing object, and then add the barcode to the drawing. Add styles to platypus style Then using renderPDF, you place
     the drawing on the PDF. Finally, you save the file.
     """
-    PDFcanvas = canvas.Canvas(date_time_fileName_PDF_w_ext)
+    PDFcanvas = canvas.Canvas((str(ruta_archivo) + str(date_time_fileName_PDF_w_ext)))
     PDFcanvas.setPageSize((label_width_mm*mm, label_height_mm*mm))
 
     ###################################################################################
@@ -725,20 +728,12 @@ def crear_etiqueta(all_unique_labels_lst):
         label_below_barcode_area.wrapOn(PDFcanvas, below_barcode_x_wrap, below_barcode_y_wrap)
         label_below_barcode_area.drawOn(PDFcanvas, below_barcode_x_pos, below_barcode_y_pos, mm)
 
-        ###############################################################################
-        #
-        #   13.4.? Show the PDF
-        #
-        ###############################################################################
-
         PDFcanvas.showPage()
 
-        ###############################################################################
-        #
-        #   13.4.? Save the PDF in its current state.
-        #
-        ###############################################################################
-
-    PDFcanvas.save()
+    if os.path.exists(ruta_archivo):
+        PDFcanvas.save()
+    else:
+        frappe.create_folder(ruta_archivo)
+        PDFcanvas.save()
 
     return 'OK'

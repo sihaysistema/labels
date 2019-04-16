@@ -68,3 +68,13 @@ def child_table_to_csv(dict_data):
     # else:
     #     # crear_etiqueta()
     #     frappe.msgprint(_(str(len(dict_data_csv))))
+
+@frappe.whitelist()
+def guardar_pdf_sticker(nombre_archivo):
+    '''Funcion para registrar el archivo pdf para luego ser descargado'''
+    
+    nombre_de_sitio = get_site_name(frappe.local.site)
+    ruta_archivo = '{0}/private/files/stickers-barcode/'.format(nombre_de_sitio)
+
+    if os.path.exists(ruta_archivo):
+        pass
