@@ -116,9 +116,10 @@ def crear_etiqueta(all_unique_labels_lst):
     html_span_open = "<span>"
     html_span_close = "</span>"
     font_path = "fonts/"
-    load_font_roboto = "/assets/labels/fonts/roboto/Roboto-Regular.ttf"
-    # image_logo_filename = "/assets/labels/images/fogliasana.jpg"
-    image_logo_filename = "fogliasana.jpg"
+    # load_font_roboto = "/assets/labels/fonts/roboto/Roboto-Regular.ttf"
+    load_font_roboto = frappe.get_app_path("labels", "public", "fonts", "Roboto-Regular.ttf")
+    image_logo_filename = frappe.get_app_path("labels", "public", "images", "fogliasana.jpg")
+    # image_logo_filename = frappe.get_app_path("/", "data", "uom_data.json")
     # clear_command_line = os.system('cls' if os.name == 'nt' else 'clear')
     # clear_command_line
 
@@ -152,13 +153,13 @@ def crear_etiqueta(all_unique_labels_lst):
     #test_prod_weight = "20"
     #test_prod_unit = "Oz."
     dest_filename = "barcode-labels"
-    line3_produced_date_text = "Harvested:"
-    line4_expiration_date_text = "Expires:"
+    line3_produced_date_text = "Cosecha:"
+    line4_expiration_date_text = "Vence:"
     days_to_expiration = 7
     currency_symb = "Q"
     test_price = 30.05                                       #Price not larger than Q99,000
 
-    below_barcode_string = 'Hidrop' + o_tilde_utf + 'nic. Sustainable. Pure'
+    below_barcode_string = 'Hidropónico Sostenible. Puro'
 
     #######################################################################################
     #
@@ -564,7 +565,11 @@ def crear_etiqueta(all_unique_labels_lst):
     ######################################################
     #2.3 Concatenating the Strings required by the label.
     line_3_text = line3_produced_date_text + production_date_print
+
+
     line_4_text = line4_expiration_date_text + expiration_date_print 
+
+
     below_barcode_text = below_barcode_string #currency_symb + format_price_print
 
     #######################################################################################
