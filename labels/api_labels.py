@@ -28,7 +28,12 @@ def child_table_to_csv(dict_data):
 
         for i in range(cantidad):
             parseo_codigo = str(item['item_code'])
-            tupla_d = (item['item_name'], parseo_codigo[(len(parseo_codigo) - 13):])
+
+            nombre = frappe.get_value('Item', parseo_codigo, 'item_name')
+            # frappe.msgprint(_(str(nombre)))
+
+            # tupla_d = (item['item_name'], parseo_codigo[(len(parseo_codigo) - 13):])
+            tupla_d = (nombre, parseo_codigo[(len(parseo_codigo) - 13):])
             listado_items.append(tupla_d)
 
     # frappe.msgprint(_(str(listado_items)))
