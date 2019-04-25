@@ -4,7 +4,7 @@ frappe.ui.form.on("Production Plan", {
             frappe.call({
                 method: "labels.api_labels.child_table_to_csv",
                 args: {
-                    dict_data: cur_frm.doc.mr_items
+                    dict_data: cur_frm.doc.po_items
                 },
                 callback: function (r) {
                     window.open(r.message);
