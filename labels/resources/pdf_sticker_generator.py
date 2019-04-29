@@ -769,7 +769,7 @@ def guardar_sticker_pdf(ruta_archivo, nombre_archivo):
         nuevo_archivo.folder = 'Home/attachments'
         nuevo_archivo.is_private = 0
         nuevo_archivo.old_parent = 'Home/attachments'
-        nuevo_archivo.save()
+        nuevo_archivo.save(ignore_permissions=True)
     except:
         frappe.msgprint(_('''Error no se pudo guardar PDF de stickers en la
                             base de datos. Intente de nuevo.'''))
