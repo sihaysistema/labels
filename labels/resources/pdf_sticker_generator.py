@@ -57,7 +57,7 @@ def crear_etiqueta(all_unique_labels_lst):
     #
     #######################################################################################
     nombre_de_sitio = get_site_name(frappe.local.site)
-    ruta_archivo = '{0}/private/files/stickers-barcode/'.format(nombre_de_sitio)
+    ruta_archivo = '{0}/public/files/stickers-barcode/'.format(nombre_de_sitio)
 
     # 2.1 Variables of file and data ot open
     fileName_w_ext = "salida.csv"
@@ -752,7 +752,8 @@ def crear_etiqueta(all_unique_labels_lst):
 def guardar_sticker_pdf(ruta_archivo, nombre_archivo):
 
     bytes_archivo = os.path.getsize((str(ruta_archivo) + str(nombre_archivo)))
-    url_directorio_archivo = '/private/files/stickers-barcode/{0}'.format(str(nombre_archivo))
+    url_directorio_archivo = '/public/files/stickers-barcode/{0}'.format(str(nombre_archivo))
+    url_acceso_archivo = '/files/stickers-barcode/{0}'.format(str(nombre_archivo))
 
     try:
         nuevo_archivo = frappe.new_doc("File")
@@ -766,14 +767,14 @@ def guardar_sticker_pdf(ruta_archivo, nombre_archivo):
         nuevo_archivo.is_home_folder = 0
         nuevo_archivo.if_folder = 0
         nuevo_archivo.folder = 'Home/attachments'
-        nuevo_archivo.is_private = 1
+        nuevo_archivo.is_private = 0
         nuevo_archivo.old_parent = 'Home/attachments'
         nuevo_archivo.save()
     except:
         frappe.msgprint(_('''Error no se pudo guardar PDF de stickers en la
                             base de datos. Intente de nuevo.'''))
     else:
-        return url_directorio_archivo
+        return url_acceso_archivo
 
 # def get_content_hash(content):
 #     filedata = content.rsplit(",", 1)[1]
