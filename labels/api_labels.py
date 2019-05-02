@@ -16,7 +16,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 @frappe.whitelist()
-def child_table_to_csv(dict_data):
+def child_table_to_csv(dict_data, sticker_type):
 
     dict_data_csv = json.loads(dict_data)
 
@@ -38,6 +38,6 @@ def child_table_to_csv(dict_data):
 
     # frappe.msgprint(_(str(listado_items)))
 
-    status_etiqueta = crear_etiqueta(listado_items)
+    status_etiqueta = crear_etiqueta(listado_items, sticker_type)
 
     return status_etiqueta
