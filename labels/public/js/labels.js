@@ -1,19 +1,10 @@
 frappe.ui.form.on("Production Plan", {
     refresh: function (frm) {
-        // frm.add_custom_button(__('GENERAR ETIQUETA'), function () {
-        //     frappe.call({
-        //         method: "labels.api_labels.child_table_to_csv",
-        //         args: {
-        //             dict_data: cur_frm.doc.po_items
-        //         },
-        //         callback: function (r) {
-        //             window.open(r.message);
-        //         }
-        //     });
-        // }).addClass("btn-primary");
 
+        // Agrega un icon-button a la barra de la pagina
         cur_frm.page.add_action_icon(__("fa fa-file-pdf-o"), function () {
 
+            // Instanciando un dialogo con sus propiedades
             let dialog = new frappe.ui.Dialog({
                 title: __('Generar Stickers'),
                 fields: [
@@ -42,7 +33,7 @@ frappe.ui.form.on("Production Plan", {
             // Muestra el dialogo
             dialog.show();
 
-            // Agrega un event lister al boton compartir del dialogo
+            // Agrega un event lister al boton del dialogo
             dialog.fields_dict.btn_generar.$wrapper.on('click', function (e) {
                 var estilo_sticker = '0';
 
@@ -67,6 +58,7 @@ frappe.ui.form.on("Production Plan", {
                         sticker_type: estilo_sticker
                     },
                     callback: function (r) {
+                        // El valor retornado, es la url de la ubicacion del archivo
                         window.open(r.message);
                     }
                 });
