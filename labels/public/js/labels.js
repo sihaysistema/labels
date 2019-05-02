@@ -1,16 +1,16 @@
 frappe.ui.form.on("Production Plan", {
     refresh: function (frm) {
-        frm.add_custom_button(__('GENERAR ETIQUETA'), function () {
-            frappe.call({
-                method: "labels.api_labels.child_table_to_csv",
-                args: {
-                    dict_data: cur_frm.doc.po_items
-                },
-                callback: function (r) {
-                    window.open(r.message);
-                }
-            });
-        }).addClass("btn-primary");
+        // frm.add_custom_button(__('GENERAR ETIQUETA'), function () {
+        //     frappe.call({
+        //         method: "labels.api_labels.child_table_to_csv",
+        //         args: {
+        //             dict_data: cur_frm.doc.po_items
+        //         },
+        //         callback: function (r) {
+        //             window.open(r.message);
+        //         }
+        //     });
+        // }).addClass("btn-primary");
 
         cur_frm.page.add_action_icon(__("fa fa-file-pdf-o"), function () {
 
