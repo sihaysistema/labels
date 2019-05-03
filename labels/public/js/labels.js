@@ -16,7 +16,8 @@ frappe.ui.form.on("Production Plan", {
                         options: [
                             "Sticker sin fechas",
                             "Sticker con fecha de cosecha",
-                            "Sticker con fecha de vencimiento"
+                            "Sticker con fecha de vencimiento",
+                            "Sticker con todos los datos"
                         ],
                         description: __('Seleccione el estilo de sticker que desee generar')
                     },
@@ -40,13 +41,14 @@ frappe.ui.form.on("Production Plan", {
                 if (dialog.fields_dict.sticker_type.value == 'Sticker sin fechas') {
                     estilo_sticker = '0';
                 }
-
                 if (dialog.fields_dict.sticker_type.value == 'Sticker con fecha de cosecha') {
                     estilo_sticker = '1';
                 }
-
                 if (dialog.fields_dict.sticker_type.value == 'Sticker con fecha de vencimiento') {
                     estilo_sticker = '2';
+                }
+                if (dialog.fields_dict.sticker_type.value == 'Sticker con todos los datos') {
+                    estilo_sticker = '3';
                 }
 
                 // console.log(estilo_sticker);

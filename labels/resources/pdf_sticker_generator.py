@@ -728,6 +728,15 @@ def crear_etiqueta(all_unique_labels_lst, sticker_type):
             label_line4_area.wrapOn(PDFcanvas, line_4_x_wrap, line_4_y_wrap)
             label_line4_area.drawOn(PDFcanvas, line_4_x_pos, line_4_y_pos, mm)
 
+        if sticker_type == '3':
+            label_line3_area = Paragraph(line_3_text, style=styles["line3"])
+            label_line3_area.wrapOn(PDFcanvas, line_3_x_wrap, line_3_y_wrap)
+            label_line3_area.drawOn(PDFcanvas, line_3_x_pos, line_3_y_pos, mm)
+
+            label_line4_area = Paragraph(line_4_text, style=styles["line4"])
+            label_line4_area.wrapOn(PDFcanvas, line_4_x_wrap, line_4_y_wrap)
+            label_line4_area.drawOn(PDFcanvas, line_4_x_pos, line_4_y_pos, mm)
+
         ###############################################################################
         #
         #   13.4.? Add line 4 (below line 3) as a paragraph
