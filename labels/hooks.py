@@ -11,8 +11,7 @@ app_color = "#F7DC6F"
 app_email = "m.monroyc22@gmail.com"
 app_license = "GNU General Public License v3.0"
 
-
-# fixtures = ["Custom Field"]
+fixtures = ["Custom Field"]
 # Includes in <head>
 # ------------------
 

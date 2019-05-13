@@ -16,7 +16,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 @frappe.whitelist()
-def child_table_to_csv(dict_data, sticker_type):
+def child_table_to_csv(dict_data, sticker_type, production_date, expiration_date):
     '''Procesa la data y cantidad para generacion de sticker'''
 
     # Carga como json-diccionario la data recibida
@@ -42,6 +42,6 @@ def child_table_to_csv(dict_data, sticker_type):
 
     # El valor retornado es la url ubicacion del archivo ya generado como publico
     # La ubicacion puede ser modificada
-    status_etiqueta = crear_etiqueta(listado_items, sticker_type)
+    status_etiqueta = crear_etiqueta(listado_items, sticker_type, production_date, expiration_date)
 
     return status_etiqueta

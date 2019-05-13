@@ -49,7 +49,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 
-def crear_etiqueta(all_unique_labels_lst, sticker_type):
+def crear_etiqueta(all_unique_labels_lst, sticker_type, production_date, expiration_date):
     
     #######################################################################################
     #
@@ -481,13 +481,16 @@ def crear_etiqueta(all_unique_labels_lst, sticker_type):
 
     # 10.1 Date calculation and formatting.
     # default= today, or can be specified date(2016, 14, 11)
-    production_date = datetime.date.today()
-    production_date_print = format_date(production_date,"dd.LLLyyyy" ,locale='es_GT')
+    # production_date = datetime.date.today()
+    # production_date_print = format_date(production_date,"dd.LLLyyyy" ,locale='es_GT')
+    production_date_print = production_date
 
     # 10.2 Expiration date calculation and formatting
     #Calculates from the production date stated above.
-    expiration_date = production_date + datetime.timedelta(days=days_to_expiration) 
-    expiration_date_print = format_date(expiration_date,"dd.LLLyyyy" ,locale='es_GT')
+    # expiration_date = production_date + datetime.timedelta(days=days_to_expiration) 
+    # expiration_date = expiration_date
+    # expiration_date_print = format_date(expiration_date,"dd.LLLyyyy" ,locale='es_GT')
+    expiration_date_print = expiration_date
 
     # 10.3 Destination Filename Variable that includes dates
     file_datetime = format_datetime(datetime.datetime.now(), "yyyy-MM-dd-kk-mm-ss", locale='es_GT')
@@ -564,6 +567,7 @@ def crear_etiqueta(all_unique_labels_lst, sticker_type):
     #
     ######################################################
     #2.3 Concatenating the Strings required by the label.
+    # line_3_text = line3_produced_date_text + production_date_print
     line_3_text = line3_produced_date_text + production_date_print
 
 

@@ -57,7 +57,9 @@ frappe.ui.form.on("Production Plan", {
                     method: "labels.api_labels.child_table_to_csv",
                     args: {
                         dict_data: cur_frm.doc.po_items,
-                        sticker_type: estilo_sticker
+                        sticker_type: estilo_sticker,
+                        production_date: cur_frm.doc.label_production_date,
+                        expiration_date: cur_frm.doc.label_expiration_date
                     },
                     callback: function (r) {
                         // El valor retornado, es la url de la ubicacion del archivo
