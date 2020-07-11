@@ -16,6 +16,10 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 @frappe.whitelist()
+def test_method(estilo_sticker):
+    return "https://www.google.com/"
+
+@frappe.whitelist()
 def child_table_to_csv(dict_data, sticker_type, production_date, expiration_date):
     '''Procesa la data y cantidad para generacion de sticker'''
 

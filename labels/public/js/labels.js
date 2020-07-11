@@ -53,6 +53,18 @@ frappe.ui.form.on("Production Plan", {
 
                 // console.log(estilo_sticker);
 
+                // Frappe cal que simplemente abre una pagina de google.
+                frappe.call({
+                    method: "labels.api_labels.test_method",
+                    args: {
+                        sticker_type: estilo_sticker
+                    },
+                    callback: function (r) {
+                        // El valor retornado, es la url de la ubicacion del archivo
+                        window.open(r.message);
+                    }
+                });
+                /* 
                 frappe.call({
                     method: "labels.api_labels.child_table_to_csv",
                     args: {
@@ -66,7 +78,7 @@ frappe.ui.form.on("Production Plan", {
                         window.open(r.message);
                     }
                 });
-
+                */
             });
         });
     }
