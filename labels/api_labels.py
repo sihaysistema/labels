@@ -2,21 +2,17 @@
 from __future__ import unicode_literals
 import frappe
 from frappe import _
-
+import os, sys
 import csv
 import json
 from datetime import datetime, date
 from frappe.utils import get_site_name
 
-from resources.pdf_sticker_generator import crear_etiqueta
+from labels.resources.pdf_sticker_generator import crear_etiqueta
 
-# Permite trabajar con acentos, ñ, simbolos, etc
-import os, sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
-
+# This method is for debugging purposes only!
 @frappe.whitelist()
-def test_method(estilo_sticker):
+def test_method(sticker_type):
     return "https://www.google.com/"
 
 @frappe.whitelist()

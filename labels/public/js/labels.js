@@ -53,9 +53,10 @@ frappe.ui.form.on("Production Plan", {
 
                 // console.log(estilo_sticker);
 
-                // Frappe cal que simplemente abre una pagina de google.
+                // Frappe call that simply opens a google page in a new tab or window  (for debugging API methods.)
+                /*
                 frappe.call({
-                    method: "labels.api_labels.test_method",
+                    method: "labels.api_labels2.test_method",
                     args: {
                         sticker_type: estilo_sticker
                     },
@@ -64,7 +65,8 @@ frappe.ui.form.on("Production Plan", {
                         window.open(r.message);
                     }
                 });
-                /* 
+                */
+ 
                 frappe.call({
                     method: "labels.api_labels.child_table_to_csv",
                     args: {
@@ -78,8 +80,9 @@ frappe.ui.form.on("Production Plan", {
                         window.open(r.message);
                     }
                 });
-                */
             });
         });
     }
 });
+
+console.log("'Labels' has been loaded.");

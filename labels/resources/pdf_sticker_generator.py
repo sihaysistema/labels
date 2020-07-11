@@ -45,9 +45,6 @@ from babel.numbers import format_number, format_decimal, format_percent
 
 # Permite trabajar con acentos, ñ, simbolos, etc
 import os, sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
-
 
 def crear_etiqueta(all_unique_labels_lst, sticker_type, production_date, expiration_date):
     
