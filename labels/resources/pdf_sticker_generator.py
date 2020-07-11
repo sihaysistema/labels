@@ -6,7 +6,7 @@ from frappe import _
 import csv
 import json
 import hashlib, base64
-import datetime, string, csv
+import datetime, string
 from six import text_type, PY2, string_types
 
 # import barcode
@@ -46,15 +46,15 @@ from babel.numbers import format_number, format_decimal, format_percent
 # Permite trabajar con acentos, ñ, simbolos, etc
 import os, sys
 
-def crear_etiqueta(all_unique_labels_lst, sticker_type, production_date, expiration_date):
+def create_labels_pdf(all_unique_labels_lst, sticker_type, production_date, expiration_date):
     
     #######################################################################################
     #
     #   2. File Opening and Formatting variables
     #
     #######################################################################################
-    nombre_de_sitio = get_site_name(frappe.local.site)
-    ruta_archivo = '{0}/public/files/stickers-barcode/'.format(nombre_de_sitio)
+    site_name = get_site_name(frappe.local.site)
+    file_path = f'{site_name}/public/files/stickers-barcode/'
 
     # 2.1 Variables of file and data ot open
     fileName_w_ext = "salida.csv"
@@ -492,7 +492,7 @@ def crear_etiqueta(all_unique_labels_lst, sticker_type, production_date, expirat
     # 10.3 Destination Filename Variable that includes dates
     file_datetime = format_datetime(datetime.datetime.now(), "yyyy-MM-dd-kk-mm-ss", locale='es_GT')
     # date_time_fileName_PDF_w_ext = file_datetime + dash + dest_filename + dot_pdf
-    date_time_fileName_PDF_w_ext = 'stickers-barcode.pdf'
+    date_time_fileName_PDF_w_ext = 'Label' + file_datetime + dot_pdf
     #######################################################################################
     #
     #   11. Currency formatting
@@ -588,7 +588,7 @@ def crear_etiqueta(all_unique_labels_lst, sticker_type, production_date, expirat
     Create a PDFCanvas object where we will deposit all the  elements of the PDF. drawing object, and then add the barcode to the drawing. Add styles to platypus style Then using renderPDF, you place
     the drawing on the PDF. Finally, you save the file.
     """
-    PDFcanvas = canvas.Canvas((str(ruta_archivo) + str(date_time_fileName_PDF_w_ext)))
+    PDFcanvas = canvas.Canvas((str(file_path) + str(date_time_fileName_PDF_w_ext)))
     PDFcanvas.setPageSize((label_width_mm*mm, label_height_mm*mm))
 
     ###################################################################################
@@ -758,43 +758,51 @@ def crear_etiqueta(all_unique_labels_lst, sticker_type, production_date, expirat
 
         PDFcanvas.showPage()
 
-    if os.path.exists(ruta_archivo):
+    if os.path.exists(file_path):
         PDFcanvas.save()
     else:
-        frappe.create_folder(ruta_archivo)
+        # This portion creates the folder where the sticker file will be saved to.
+        frappe.create_folder(file_path)
+        # This portion creates the folder and saves it to the sites directory specified.
         PDFcanvas.save()
 
-    estado_guardar = guardar_sticker_pdf(ruta_archivo, str(date_time_fileName_PDF_w_ext))
+    saved_status = create_file_doctype_and_attach(file_path, str(date_time_fileName_PDF_w_ext))
 
-    return estado_guardar
+    return saved_status
 
 
-def guardar_sticker_pdf(ruta_archivo, nombre_archivo):
+def create_file_doctype_and_attach(file_path, file_name):
 
-    bytes_archivo = os.path.getsize((str(ruta_archivo) + str(nombre_archivo)))
-    url_directorio_archivo = '/public/files/stickers-barcode/{0}'.format(str(nombre_archivo))
-    url_acceso_archivo = '/files/stickers-barcode/{0}'.format(str(nombre_archivo))
+    bytes_archivo = os.path.getsize((str(file_path) + str(file_name)))
+    file_url = f'/files/pdflabels/{file_name}'
+    file_access_url = f'/files/pdflabels/{file_name}'
 
+    try:
+    """
     try:
         nuevo_archivo = frappe.new_doc("File")
         nuevo_archivo.docstatus = 0
-        nuevo_archivo.file_name = str(nombre_archivo)
-        nuevo_archivo.file_url = url_directorio_archivo
-        nuevo_archivo.attached_to_name = str(nombre_archivo)
+        nuevo_archivo.file_name = str(file_name)
+        nuevo_archivo.file_url = file_url
+        nuevo_archivo.attached_to_name = str(file_name)
         nuevo_archivo.file_size = bytes_archivo
-        # nuevo_archivo.attached_to_doctype = 'Sales Invoice'
-        # nuevo_archivo.content_hash = get_content_hash(url_directorio_archivo)
+        # nuevo_archivo.content_hash = get_content_hash(file_url)
         nuevo_archivo.is_home_folder = 0
         nuevo_archivo.if_folder = 0
-        nuevo_archivo.folder = 'Home/attachments'
+        nuevo_archivo.folder = 'Home/Attachments'
         nuevo_archivo.is_private = 0
-        nuevo_archivo.old_parent = 'Home/attachments'
+        nuevo_archivo.old_parent = 'Home/Attachments'
         nuevo_archivo.save(ignore_permissions=True)
+    """
     except:
+        frappe.msgprint(_('''Cannot properly make out the url of the file you want.'''))
+
+    """ 
         frappe.msgprint(_('''Error no se pudo guardar PDF de stickers en la
                             base de datos. Intente de nuevo.'''))
+    """
     else:
-        return url_acceso_archivo
+        return file_access_url
 
 # def get_content_hash(content):
 #     filedata = content.rsplit(",", 1)[1]

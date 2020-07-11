@@ -51,8 +51,6 @@ frappe.ui.form.on("Production Plan", {
                     estilo_sticker = '3';
                 }
 
-                // console.log(estilo_sticker);
-
                 // Frappe call that simply opens a google page in a new tab or window  (for debugging API methods.)
                 /*
                 frappe.call({
@@ -66,9 +64,8 @@ frappe.ui.form.on("Production Plan", {
                     }
                 });
                 */
- 
                 frappe.call({
-                    method: "labels.api_labels.child_table_to_csv",
+                    method: "labels.api_labels.process_labels",
                     args: {
                         dict_data: cur_frm.doc.po_items,
                         sticker_type: estilo_sticker,

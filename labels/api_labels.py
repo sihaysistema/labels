@@ -8,7 +8,7 @@ import json
 from datetime import datetime, date
 from frappe.utils import get_site_name
 
-from labels.resources.pdf_sticker_generator import crear_etiqueta
+from labels.resources.pdf_sticker_generator import create_labels_pdf
 
 # This method is for debugging purposes only!
 @frappe.whitelist()
@@ -16,7 +16,7 @@ def test_method(sticker_type):
     return "https://www.google.com/"
 
 @frappe.whitelist()
-def child_table_to_csv(dict_data, sticker_type, production_date, expiration_date):
+def process_labels(dict_data, sticker_type, production_date, expiration_date):
     '''Procesa la data y cantidad para generacion de sticker'''
 
     # Carga como json-diccionario la data recibida
@@ -40,8 +40,10 @@ def child_table_to_csv(dict_data, sticker_type, production_date, expiration_date
             tupla_d = (nombre, parseo_codigo[(len(parseo_codigo) - 13):])
             listado_items.append(tupla_d)
 
-    # El valor retornado es la url ubicacion del archivo ya generado como publico
-    # La ubicacion puede ser modificada
-    status_etiqueta = crear_etiqueta(listado_items, sticker_type, production_date, expiration_date)
+    # en_US: We call the labels PDF creation function, which needs a list of the items needed, the sticker type 1 of 4, production date, expiration date
+    # es: Llamamos a la funcion de creacion del PDF de etiquetas, que necesita una lista de los codigos, el tipo de sticker 1 de 4, la fecha de produccion y la fecha de vencimiento.
+    status_etiqueta = create_labels_pdf(listado_items, sticker_type, production_date, expiration_date)
 
+    # en_US: The value returnes is the URL location of the file, generated as a public file.
+    # es: El valor retornado es la url ubicacion del archivo ya generado como publico
     return status_etiqueta
