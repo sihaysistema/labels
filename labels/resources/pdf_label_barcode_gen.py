@@ -624,7 +624,7 @@ class BarcodeLabelGen_old:
             self.hi_there.pack(side=LEFT)
 
     def say_hi(self):
-        print "Aqui cargaremos el archivo!"
+        print("Aqui cargaremos el archivo!")
 
 class BarcodeLabelGen(Frame):
 
