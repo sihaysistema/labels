@@ -9,7 +9,7 @@ import hashlib, base64
 import datetime, string, csv
 from six import text_type, PY2, string_types
 
-import barcode
+# import barcode
 from frappe.utils import get_site_name
 
 # 1.2.2.1 Reportlab Graphics
