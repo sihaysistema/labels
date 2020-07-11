@@ -54,7 +54,7 @@ def create_labels_pdf(all_unique_labels_lst, sticker_type, production_date, expi
     #
     #######################################################################################
     site_name = get_site_name(frappe.local.site)
-    file_path = f'{site_name}/public/files/stickers-barcode/'
+    file_path = f'{site_name}/public/files/pdflabels/'
 
     # 2.1 Variables of file and data ot open
     fileName_w_ext = "salida.csv"
@@ -778,29 +778,29 @@ def create_file_doctype_and_attach(file_path, file_name):
     file_access_url = f'/files/pdflabels/{file_name}'
 
     try:
-    """
-    try:
-        nuevo_archivo = frappe.new_doc("File")
-        nuevo_archivo.docstatus = 0
-        nuevo_archivo.file_name = str(file_name)
-        nuevo_archivo.file_url = file_url
-        nuevo_archivo.attached_to_name = str(file_name)
-        nuevo_archivo.file_size = bytes_archivo
-        # nuevo_archivo.content_hash = get_content_hash(file_url)
-        nuevo_archivo.is_home_folder = 0
-        nuevo_archivo.if_folder = 0
-        nuevo_archivo.folder = 'Home/Attachments'
-        nuevo_archivo.is_private = 0
-        nuevo_archivo.old_parent = 'Home/Attachments'
-        nuevo_archivo.save(ignore_permissions=True)
-    """
+        """
+        try:
+            nuevo_archivo = frappe.new_doc("File")
+            nuevo_archivo.docstatus = 0
+            nuevo_archivo.file_name = str(file_name)
+            nuevo_archivo.file_url = file_url
+            nuevo_archivo.attached_to_name = str(file_name)
+            nuevo_archivo.file_size = bytes_archivo
+            # nuevo_archivo.content_hash = get_content_hash(file_url)
+            nuevo_archivo.is_home_folder = 0
+            nuevo_archivo.if_folder = 0
+            nuevo_archivo.folder = 'Home/Attachments'
+            nuevo_archivo.is_private = 0
+            nuevo_archivo.old_parent = 'Home/Attachments'
+            nuevo_archivo.save(ignore_permissions=True)
+        """
     except:
         frappe.msgprint(_('''Cannot properly make out the url of the file you want.'''))
 
-    """ 
-        frappe.msgprint(_('''Error no se pudo guardar PDF de stickers en la
-                            base de datos. Intente de nuevo.'''))
-    """
+        """ 
+            frappe.msgprint(_('''Error no se pudo guardar PDF de stickers en la
+                                base de datos. Intente de nuevo.'''))
+        """
     else:
         return file_access_url
 
