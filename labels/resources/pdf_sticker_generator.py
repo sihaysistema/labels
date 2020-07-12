@@ -141,7 +141,7 @@ def create_labels_pdf(all_unique_labels_lst, sticker_type, production_date, expi
     label_height_mm = 38 # default = 38
     label_width_mm = 50 # default = 51
     lft_mgn = 3 #Left margin in mm (helps to wrap paragraph lines)
-    rgt_mgn = 3 #Right margin in mm  (helps to wrap paragraph lines)
+    rgt_mgn = 3 #Right margin in mm (helps to wrap paragraph lines)
 
     #######################################################################################
     #
@@ -476,7 +476,7 @@ def create_labels_pdf(all_unique_labels_lst, sticker_type, production_date, expi
 
     #######################################################################################
     #
-    #   10. date calculations  (default date is today)
+    #   10. date calculations (default date is today)
     #
     #######################################################################################
 
@@ -495,7 +495,6 @@ def create_labels_pdf(all_unique_labels_lst, sticker_type, production_date, expi
 
     # 10.3 Destination Filename Variable that includes dates
     # file_datetime = format_datetime(datetime.datetime.now(), "yyyy-MM-dd-kk-mm-ss", locale='es_GT')
-    # date_time_fileName_PDF_w_ext = file_datetime + dash + dest_filename + dot_pdf
     # date_time_fileName_PDF_w_ext = 'Label-' + file_datetime + dot_pdf
     #######################################################################################
     #
@@ -606,6 +605,12 @@ def create_labels_pdf(all_unique_labels_lst, sticker_type, production_date, expi
     styles.add(ParagraphStyle(name=line3_style_name, fontName=line3_font_name, fontSize=line3_font_size, leading=line3_leading, leftIndent=line3_left_indent, rightIndent=line3_right_indent, firstLineIndent=line3_first_line_indent, alignment=line3_alignment, spaceBefore=line3_space_before, spaceAfter=line3_space_after, bulletFontName=line3_bullet_font_name, bulletFontSize=line3_bullet_font_size, bulletIndent=line3_bullet_indent, textColor=line3_text_color, backColor=line3_back_color, wordWrap=line3_word_wrap, borderWidth=line3_border_width, borderPadding=line3_border_padding, borderColor=line3_border_color, borderRadius=line3_border_radius, allowWidows=line3_allow_widows, allowOrphans=line3_allow_orphans, textTransform=line3_text_transform, endDots=line3_end_dots, splitLongWords=line3_split_long_words))
     styles.add(ParagraphStyle(name=line4_style_name, fontName=line4_font_name, fontSize=line4_font_size, leading=line4_leading, leftIndent=line4_left_indent, rightIndent=line4_right_indent, firstLineIndent=line4_first_line_indent, alignment=line4_alignment, spaceBefore=line4_space_before, spaceAfter=line4_space_after, bulletFontName=line4_bullet_font_name, bulletFontSize=line4_bullet_font_size, bulletIndent=line4_bullet_indent, textColor=line4_text_color, backColor=line4_back_color, wordWrap=line4_word_wrap, borderWidth=line4_border_width, borderPadding=line4_border_padding, borderColor=line4_border_color, borderRadius=line4_border_radius, allowWidows=line4_allow_widows, allowOrphans=line4_allow_orphans, textTransform=line4_text_transform, endDots=line4_end_dots, splitLongWords=line4_split_long_words))
     styles.add(ParagraphStyle(name=below_barcode_style_name, fontName=below_barcode_font_name, fontSize=below_barcode_font_size, leading=below_barcode_leading, leftIndent=below_barcode_left_indent, rightIndent=below_barcode_right_indent, firstLineIndent=below_barcode_first_line_indent, alignment=below_barcode_alignment, spaceBefore=below_barcode_space_before, spaceAfter=below_barcode_space_after, bulletFontName=below_barcode_bullet_font_name, bulletFontSize=below_barcode_bullet_font_size, bulletIndent=below_barcode_bullet_indent, textColor=below_barcode_text_color, backColor=below_barcode_back_color, wordWrap=below_barcode_word_wrap, borderWidth=below_barcode_border_width, borderPadding=below_barcode_border_padding, borderColor=below_barcode_border_color, borderRadius=below_barcode_border_radius, allowWidows=below_barcode_allow_widows, allowOrphans=below_barcode_allow_orphans, textTransform=below_barcode_text_transform, endDots=below_barcode_end_dots, splitLongWords=below_barcode_split_long_words))
+
+    # WIP WIP
+    # label_styles = [1,2]
+    # for style in label_styles:
+            # styles.add(ParagraphStyle(name=style['name'], fontName=style['fontName'], fontSize=below_barcode_font_size, leading=below_barcode_leading, leftIndent=below_barcode_left_indent, rightIndent=below_barcode_right_indent, firstLineIndent=below_barcode_first_line_indent, alignment=below_barcode_alignment, spaceBefore=below_barcode_space_before, spaceAfter=below_barcode_space_after, bulletFontName=below_barcode_bullet_font_name, bulletFontSize=below_barcode_bullet_font_size, bulletIndent=below_barcode_bullet_indent, textColor=below_barcode_text_color, backColor=below_barcode_back_color, wordWrap=below_barcode_word_wrap, borderWidth=below_barcode_border_width, borderPadding=below_barcode_border_padding, borderColor=below_barcode_border_color, borderRadius=below_barcode_border_radius, allowWidows=below_barcode_allow_widows, allowOrphans=below_barcode_allow_orphans, textTransform=below_barcode_text_transform, endDots=below_barcode_end_dots, splitLongWords=below_barcode_split_long_words))
+
 
     ###################################################################################
     #

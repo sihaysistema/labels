@@ -1,0 +1,267 @@
+{
+    "labels": {
+        "fogliasana58x31": {
+            "label_name": "Fogliasana Barcode 58 x 31", 
+            "label_format": "", 
+            "label_height_mm": 31, 
+            "label_width_mm": 58, 
+            "move_x_mm": 0, 
+            "move_y_mm": 0, 
+            "margins": {
+                "top_mm": 0, 
+                "right_mm": 3, 
+                "bottom_mm": 3, 
+                "left_mm": 3
+            },
+            "elements": [
+                {
+                    "from_top_to_bottom": 1, 
+                    "element_name": "Product", 
+                    "x_pos_mm": 1, 
+                    "y_pos_mm": 30, 
+                    "height_mm": 0, 
+                    "width_mm": 0, 
+                    "style_name": "line4"
+                },
+                {
+                    "from_top_to_bottom": 1, 
+                    "element_name": "Product", 
+                    "x_pos_mm": 1, 
+                    "y_pos_mm": 30, 
+                    "height_mm": 0, 
+                    "width_mm": 0, 
+                    "style_name": "line4" 
+                }
+            ]
+        },
+        "tunart-incoming-tuna": {
+            "label_name": "TUNART Incoming 105 x 155", 
+            "label_format": "", 
+            "label_height_mm": 155, 
+            "label_width_mm": 105, 
+            "move_x_mm": 0, 
+            "move_y_mm": 0, 
+            "margins": {
+                "top_mm": 0, 
+                "right_mm": 3, 
+                "bottom_mm": 3, 
+                "left_mm": 3
+            },
+            "elements": [
+                {
+                    "from_top_to_bottom": 1, 
+                    "element_name": "Product", 
+                    "x_pos_mm": 1, 
+                    "y_pos_mm": 30, 
+                    "height_mm": 0, 
+                    "width_mm": 0, 
+                    "style_name": "line4"
+                },
+                {
+                    "from_top_to_bottom": 1, 
+                    "element_name": "Product", 
+                    "x_pos_mm": 1, 
+                    "y_pos_mm": 30, 
+                    "height_mm": 0, 
+                    "width_mm": 0, 
+                    "style_name": "line4" 
+                }
+            ]
+        },
+        "tunart-outgoing-tuna": {
+            "label_name": "TUNART Box 105 x 155", 
+            "label_format": "", 
+            "label_height_mm": 155, 
+            "label_width_mm": 105, 
+            "move_x_mm": 0, 
+            "move_y_mm": 0, 
+            "margins": {
+                "top_mm": 0, 
+                "right_mm": 3, 
+                "bottom_mm": 3, 
+                "left_mm": 3
+            },
+            "elements": [
+                {
+                    "from_top_to_bottom": 1, 
+                    "element_name": "Product", 
+                    "x_pos_mm": 1, 
+                    "y_pos_mm": 30, 
+                    "height_mm": 0, 
+                    "width_mm": 0, 
+                    "style_name": "line4"
+                },
+                {
+                    "from_top_to_bottom": 1, 
+                    "element_name": "Product", 
+                    "x_pos_mm": 1, 
+                    "y_pos_mm": 30, 
+                    "height_mm": 0, 
+                    "width_mm": 0, 
+                    "style_name": "line4" 
+                }
+            ]
+        }
+    },
+    "colors": {
+        "hex_pantone_3005_c_blue": "#0075c9", 
+        "hex_pantone_360_c_green": "#6cc04a", 
+        "hex_pantone_000_c_white": "#ffffff", 
+        "hex_pantone_black": "#000000"
+    },
+    "styles": [
+        {
+            "name": "line4", 
+            "fontName": "Helvetica", 
+            "fontSize": 12, 
+            "leading": 12, 
+            "leftIndent": 0, 
+            "rightIndent": 0, 
+            "firstLineIndent": 0, 
+            "alignment": "TA_LEFT", 
+            "spaceBefore": 0, 
+            "spaceAfter": 0, 
+            "bulletFontName": "Times-Roman", 
+            "bulletFontSize": 10, 
+            "bulletIndent": 0, 
+            "textColor": "hex_pantone_black", 
+            "backColor": "None", 
+            "wordWrap": "None", 
+            "borderWidth": 0, 
+            "borderPadding": 0, 
+            "borderColor": "None", 
+            "borderRadius": "None", 
+            "allowWidows": 1, 
+            "allowOrphans": 0, 
+            "textTransform": "None", 
+            "endDots": "None", 
+            "splitLongWords": 1
+        },
+        {
+            "name": "FSBlue", 
+            "fontName": "Helvetica", 
+            "fontSize": 12, 
+            "leading": 12, 
+            "leftIndent": 0, 
+            "rightIndent": 0, 
+            "firstLineIndent": 0, 
+            "alignment": "TA_LEFT", 
+            "spaceBefore": 0, 
+            "spaceAfter": 0, 
+            "bulletFontName": "Times-Roman", 
+            "bulletFontSize": 10, 
+            "bulletIndent": 0, 
+            "textColor": "hex_pantone_black", 
+            "backColor": "None", 
+            "wordWrap": "None", 
+            "borderWidth": 0, 
+            "borderPadding": 0, 
+            "borderColor": "None", 
+            "borderRadius": "None", 
+            "allowWidows": 1, 
+            "allowOrphans": 0, 
+            "textTransform": "None", 
+            "endDots": "None", 
+            "splitLongWords": 1
+        },
+        {
+            "name": "line3", 
+            "fontName": "Helvetica", 
+            "fontSize": 12, 
+            "leading": 12, 
+            "leftIndent": 0, 
+            "rightIndent": 0, 
+            "firstLineIndent": 0, 
+            "alignment": "TA_LEFT", 
+            "spaceBefore": 0, 
+            "spaceAfter": 0, 
+            "bulletFontName": "Times-Roman", 
+            "bulletFontSize": 10, 
+            "bulletIndent": 0, 
+            "textColor": "hex_pantone_black", 
+            "backColor": "None", 
+            "wordWrap": "None", 
+            "borderWidth": 0, 
+            "borderPadding": 0, 
+            "borderColor": "None", 
+            "borderRadius": "None", 
+            "allowWidows": 1, 
+            "allowOrphans": 0, 
+            "textTransform": "None", 
+            "endDots": "None", 
+            "splitLongWords": 1
+        },
+        {
+            "name": "below-barcode", 
+            "fontName": "Helvetica-bold", 
+            "fontSize": 8, 
+            "leading": 12, 
+            "leftIndent": 0, 
+            "rightIndent": 0, 
+            "firstLineIndent": 0, 
+            "alignment": "TA_LEFT", 
+            "spaceBefore": 0, 
+            "spaceAfter": 0, 
+            "bulletFontName": "Times-Roman", 
+            "bulletFontSize": 10, 
+            "bulletIndent": 0, 
+            "textColor": "hex_pantone_black", 
+            "backColor": "None", 
+            "wordWrap": "None", 
+            "borderWidth": 0, 
+            "borderPadding": 0, 
+            "borderColor": "None", 
+            "borderRadius": "None", 
+            "allowWidows": 1, 
+            "allowOrphans": 0, 
+            "textTransform": "None", 
+            "endDots": "None", 
+            "splitLongWords": 0
+        }
+    ],
+    "operating_systems": [
+        {
+            "osname": "macOS", 
+            "kernel": "XNU", 
+            "oscodename": "Catalina", 
+            "osversion": "10.15.5"
+        },
+        {
+            "osname": "Windows", 
+            "kernel": "Windows NT", 
+            "oscodename": "Threshold", 
+            "osversion": "10"
+        },
+        {
+            "osname": "Ubuntu", 
+            "kernel": "Linux", 
+            "oscodename": "Threshold", 
+            "osversion": "10"
+        }
+    ],
+    "printers": [
+        {
+            "brand": "Rollo", 
+            "model": "X1038", 
+            "type": "Thermal Direct", 
+            "speed_mm_sec": 150, 
+            "media": "Roll", 
+            "operating_systems": ["macOS","Windows","Ubuntu"],
+            "max_media_width_mm": 51.0,
+            "max_media_height_mm": 100.0,
+            "min_media_width_mm": 48.0,
+            "min_media_height_mm": 30.0
+        },
+        {
+            "brand": "TSC", 
+            "model": "TPP-442 Pro", 
+            "type": "Thermal Direct", 
+            "speed_mm_sec": 150, 
+            "media": "Roll", 
+            "operating_systems": ["macOS","Windows","Ubuntu"],
+            "max_media_width_mm": 51.0,
+            "max_media_height_mm": 100.0
+        }
+    ],
+    "hello_world": "This is the content of hello_world"
+}

@@ -9,11 +9,15 @@ from datetime import datetime, date
 from frappe.utils import get_site_name
 
 from labels.resources.pdf_sticker_generator import create_labels_pdf, create_file_doctype_and_attach
+from labels.resources.label_setup import new_create_labels_pdf
+
 
 # This method is for debugging purposes only!
+"""
 @frappe.whitelist()
 def test_method(sticker_type):
     return "https://www.google.com/"
+"""
 
 @frappe.whitelist()
 def process_labels(dict_data, sticker_type, production_date, expiration_date):
@@ -49,3 +53,8 @@ def process_labels(dict_data, sticker_type, production_date, expiration_date):
     # en_US: The value returnes is the URL location of the file, generated as a public file.
     # es: El valor retornado es la url ubicacion del archivo ya generado como publico
     return label_file_status
+
+@frappe.whitelist()
+def process_labels_2(dict_data, sticker_type, production_date, expiration_date):
+    result = new_create_labels_pdf()
+    return result
