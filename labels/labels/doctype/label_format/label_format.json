@@ -1,0 +1,230 @@
+{
+ "autoname": "field:title",
+ "creation": "2020-07-12 02:08:57.105129",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "title",
+  "dimensions_section",
+  "width",
+  "width_uom",
+  "column_break_5",
+  "height",
+  "height_uom",
+  "margins_section",
+  "top_margin",
+  "top_margin_uom",
+  "column_break_11",
+  "bottom_margin",
+  "bottom_margin_uom",
+  "column_break_14",
+  "right_margin",
+  "right_margin_uom",
+  "column_break_17",
+  "left_margin",
+  "left_margin_uom",
+  "content_section",
+  "content_json",
+  "preview_section",
+  "label_image",
+  "attach_label_sample_image"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "unique": 1
+  },
+  {
+   "fieldname": "dimensions_section",
+   "fieldtype": "Section Break",
+   "label": "Dimensions"
+  },
+  {
+   "fieldname": "width",
+   "fieldtype": "Float",
+   "label": "Width"
+  },
+  {
+   "default": "Millimeter",
+   "fieldname": "width_uom",
+   "fieldtype": "Link",
+   "label": "Width UOM",
+   "options": "UOM"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "height",
+   "fieldtype": "Float",
+   "label": "Height"
+  },
+  {
+   "default": "Millimeter",
+   "fieldname": "height_uom",
+   "fieldtype": "Link",
+   "label": "Height UOM",
+   "options": "UOM"
+  },
+  {
+   "fieldname": "preview_section",
+   "fieldtype": "Section Break",
+   "label": "Preview"
+  },
+  {
+   "fieldname": "label_image",
+   "fieldtype": "Image",
+   "label": "Label image",
+   "options": "attach_label_sample_image"
+  },
+  {
+   "fieldname": "attach_label_sample_image",
+   "fieldtype": "Attach Image",
+   "label": "Attach Label Sample"
+  },
+  {
+   "fieldname": "margins_section",
+   "fieldtype": "Section Break",
+   "label": "Margins"
+  },
+  {
+   "description": "Distance from top of label.",
+   "fieldname": "top_margin",
+   "fieldtype": "Float",
+   "label": "Top Margin"
+  },
+  {
+   "default": "Millimeter",
+   "fieldname": "top_margin_uom",
+   "fieldtype": "Link",
+   "label": "Top Margin UOM",
+   "options": "UOM"
+  },
+  {
+   "description": "Distance from bottom of label.",
+   "fieldname": "bottom_margin",
+   "fieldtype": "Float",
+   "label": "Bottom Margin"
+  },
+  {
+   "default": "Millimeter",
+   "fieldname": "bottom_margin_uom",
+   "fieldtype": "Link",
+   "label": "Bottom Margin UOM",
+   "options": "UOM"
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Distance from right of label.",
+   "fieldname": "right_margin",
+   "fieldtype": "Float",
+   "label": "Right margin"
+  },
+  {
+   "default": "Millimeter",
+   "fieldname": "right_margin_uom",
+   "fieldtype": "Link",
+   "label": "Right Margin UOM",
+   "options": "UOM"
+  },
+  {
+   "description": "Distance from left of label.",
+   "fieldname": "left_margin",
+   "fieldtype": "Float",
+   "label": "Left Margin"
+  },
+  {
+   "default": "Millimeter",
+   "fieldname": "left_margin_uom",
+   "fieldtype": "Link",
+   "label": "Left Margin UOM",
+   "options": "UOM"
+  },
+  {
+   "fieldname": "column_break_14",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_17",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "content_section",
+   "fieldtype": "Section Break",
+   "label": "Content"
+  },
+  {
+   "default": "{\n    \"colors\": {\n        \"hex_pantone_3005_c_blue\": \"#0075c9\", \n        \"hex_pantone_360_c_green\": \"#6cc04a\", \n        \"hex_pantone_000_c_white\": \"#ffffff\", \n        \"hex_pantone_black\": \"#000000\"\n    },\n    \"styles\": [\n        {\n            \"name\": \"line1\", \n            \"fontName\": \"Helvetica\", \n            \"fontSize\": 12, \n            \"leading\": 12, \n            \"leftIndent\": 0, \n            \"rightIndent\": 0, \n            \"firstLineIndent\": 0, \n            \"alignment\": \"TA_LEFT\", \n            \"spaceBefore\": 0, \n            \"spaceAfter\": 0, \n            \"bulletFontName\": \"Times-Roman\", \n            \"bulletFontSize\": 10, \n            \"bulletIndent\": 0, \n            \"textColor\": \"hex_pantone_black\", \n            \"backColor\": \"None\", \n            \"wordWrap\": \"None\", \n            \"borderWidth\": 0, \n            \"borderPadding\": 0, \n            \"borderColor\": \"None\", \n            \"borderRadius\": \"None\", \n            \"allowWidows\": 1, \n            \"allowOrphans\": 0, \n            \"textTransform\": \"None\", \n            \"endDots\": \"None\", \n            \"splitLongWords\": 1\n        },\n        {\n            \"name\": \"Blue\", \n            \"fontName\": \"Helvetica\", \n            \"fontSize\": 12, \n            \"leading\": 12, \n            \"leftIndent\": 0, \n            \"rightIndent\": 0, \n            \"firstLineIndent\": 0, \n            \"alignment\": \"TA_LEFT\", \n            \"spaceBefore\": 0, \n            \"spaceAfter\": 0, \n            \"bulletFontName\": \"Times-Roman\", \n            \"bulletFontSize\": 10, \n            \"bulletIndent\": 0, \n            \"textColor\": \"hex_pantone_3005_c_blue\", \n            \"backColor\": \"None\", \n            \"wordWrap\": \"None\", \n            \"borderWidth\": 0, \n            \"borderPadding\": 0, \n            \"borderColor\": \"None\", \n            \"borderRadius\": \"None\", \n            \"allowWidows\": 1, \n            \"allowOrphans\": 0, \n            \"textTransform\": \"None\", \n            \"endDots\": \"None\", \n            \"splitLongWords\": 1\n        },\n        {\n            \"name\": \"line2\", \n            \"fontName\": \"Helvetica\", \n            \"fontSize\": 12, \n            \"leading\": 12, \n            \"leftIndent\": 0, \n            \"rightIndent\": 0, \n            \"firstLineIndent\": 0, \n            \"alignment\": \"TA_LEFT\", \n            \"spaceBefore\": 0, \n            \"spaceAfter\": 0, \n            \"bulletFontName\": \"Times-Roman\", \n            \"bulletFontSize\": 10, \n            \"bulletIndent\": 0, \n            \"textColor\": \"hex_pantone_black\", \n            \"backColor\": \"None\", \n            \"wordWrap\": \"None\", \n            \"borderWidth\": 0, \n            \"borderPadding\": 0, \n            \"borderColor\": \"None\", \n            \"borderRadius\": \"None\", \n            \"allowWidows\": 1, \n            \"allowOrphans\": 0, \n            \"textTransform\": \"None\", \n            \"endDots\": \"None\", \n            \"splitLongWords\": 1\n        },\n        {\n            \"name\": \"below-barcode\", \n            \"fontName\": \"Helvetica-bold\", \n            \"fontSize\": 8, \n            \"leading\": 12, \n            \"leftIndent\": 0, \n            \"rightIndent\": 0, \n            \"firstLineIndent\": 0, \n            \"alignment\": \"TA_LEFT\", \n            \"spaceBefore\": 0, \n            \"spaceAfter\": 0, \n            \"bulletFontName\": \"Times-Roman\", \n            \"bulletFontSize\": 10, \n            \"bulletIndent\": 0, \n            \"textColor\": \"hex_pantone_black\", \n            \"backColor\": \"None\", \n            \"wordWrap\": \"None\", \n            \"borderWidth\": 0, \n            \"borderPadding\": 0, \n            \"borderColor\": \"None\", \n            \"borderRadius\": \"None\", \n            \"allowWidows\": 1, \n            \"allowOrphans\": 0, \n            \"textTransform\": \"None\", \n            \"endDots\": \"None\", \n            \"splitLongWords\": 0\n        }\n    ],\n            \"elements\": [\n                {\n                    \"from_top_to_bottom\": 1, \n                    \"element_name\": \"Product Name\", \n                    \"element_contents\": \"Sample Item Name\", \n                    \"x_pos_mm\": 1, \n                    \"y_pos_mm\": 30, \n                    \"height_mm\": 0, \n                    \"width_mm\": 0, \n                    \"style_name\": \"line1\"\n                },\n                {\n                    \"from_top_to_bottom\": 2, \n                    \"element_name\": \"Serial No\", \n                    \"element_contents\": \"ABC-20200701-589378\",\n                    \"x_pos_mm\": 1, \n                    \"y_pos_mm\": 30, \n                    \"height_mm\": 0, \n                    \"width_mm\": 0, \n                    \"style_name\": \"line2\" \n                }\n            ]\n}",
+   "fieldname": "content_json",
+   "fieldtype": "Code",
+   "label": "Content JSON"
+  }
+ ],
+ "modified": "2020-07-12 02:49:24.566449",
+ "modified_by": "Administrator",
+ "module": "Labels",
+ "name": "Label Format",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Stock User",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Stock Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Administrator",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "title_field": "title",
+ "track_changes": 1
+}

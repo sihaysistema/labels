@@ -1,0 +1,122 @@
+{
+ "autoname": "field:title",
+ "creation": "2020-07-12 02:20:29.883072",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "title",
+  "description",
+  "relative_size",
+  "x_position",
+  "x_position_uom",
+  "column_break_6",
+  "y_position",
+  "y_position_uom"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "unique": 1
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Code",
+   "label": "Description"
+  },
+  {
+   "default": "100",
+   "description": "Relative size as a % value of the chosen label format.",
+   "fieldname": "relative_size",
+   "fieldtype": "Float",
+   "label": "Relative Size"
+  },
+  {
+   "fieldname": "x_position",
+   "fieldtype": "Float",
+   "label": "X Position"
+  },
+  {
+   "fieldname": "x_position_uom",
+   "fieldtype": "Link",
+   "label": "X Position UOM",
+   "options": "UOM"
+  },
+  {
+   "fieldname": "column_break_6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "y_position",
+   "fieldtype": "Float",
+   "label": "Y Position"
+  },
+  {
+   "fieldname": "y_position_uom",
+   "fieldtype": "Data",
+   "label": "Y Position UOM",
+   "options": "UOM"
+  }
+ ],
+ "modified": "2020-07-12 02:39:33.478645",
+ "modified_by": "Administrator",
+ "module": "Labels",
+ "name": "Label Component",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Stock User",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Stock Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Administrator",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
