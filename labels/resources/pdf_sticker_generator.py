@@ -9,7 +9,6 @@ import hashlib, base64
 import datetime, string
 from six import text_type, PY2, string_types
 
-# import barcode
 from frappe.utils import get_site_name
 
 # 1.2.2.1 Reportlab Graphics
@@ -26,7 +25,7 @@ from reportlab.lib import colors # Color management
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_LEFT, TA_CENTER
 
-# 1.2.2.3 Reportlab pdfgen PDF Generator
+# 1.2.2.3 Reportlab pdfgen PDF Generator canvas. Where we will "draw" our pdf document.
 from reportlab.pdfgen import canvas
 
 # 1.2.2.4 Reportlab pdfmetric, TTFont  (to enable your own font)  FIXME
@@ -46,6 +45,14 @@ from babel.numbers import format_number, format_decimal, format_percent
 # Permite trabajar con acentos, ñ, simbolos, etc
 import os, sys
 
+site_name = get_site_name(frappe.local.site)
+server_file_path = f'{site_name}/public/files/pdflabels/'
+
+dot_pdf = ".pdf"
+file_datetime = format_datetime(datetime.datetime.now(), "yyyy-MM-dd-kk-mm-ss", locale='es_GT')
+# date_time_fileName_PDF_w_ext = file_datetime + dash + dest_filename + dot_pdf
+date_time_fileName_PDF_w_ext = 'Label-' + file_datetime + dot_pdf
+
 def create_labels_pdf(all_unique_labels_lst, sticker_type, production_date, expiration_date):
     
     #######################################################################################
@@ -53,16 +60,13 @@ def create_labels_pdf(all_unique_labels_lst, sticker_type, production_date, expi
     #   2. File Opening and Formatting variables
     #
     #######################################################################################
-    site_name = get_site_name(frappe.local.site)
-    file_path = f'{site_name}/public/files/pdflabels/'
-
     # 2.1 Variables of file and data ot open
-    fileName_w_ext = "salida.csv"
-    accessModeUniv_nl = "rU"
-    accessMode_W = "w"
-    accessMode_WB = "wb"
-    dot_pdf = ".pdf"
+    # fileName_w_ext = "salida.csv"
+    # accessModeUniv_nl = "rU"
+    # accessMode_W = "w"
+    # accessMode_WB = "wb"
     # 2.2 Register a csv Dialect  (can be changed to suit specific csv files)
+    """
     csv.register_dialect(
         'mydialect',
         delimiter = str(','),
@@ -71,10 +75,10 @@ def create_labels_pdf(all_unique_labels_lst, sticker_type, production_date, expi
         skipinitialspace = True,
         lineterminator = '\r\n',
         quoting = csv.QUOTE_MINIMAL)
-
+    """
     # 2.3 strip filename of extension and store it in a variable
-    fileName_wo_ext = os.path.splitext(os.path.basename(fileName_w_ext))[0]
-    fileName_PDF_w_ext = fileName_wo_ext + dot_pdf
+    # fileName_wo_ext = os.path.splitext(os.path.basename(fileName_w_ext))[0]
+    # fileName_PDF_w_ext = fileName_wo_ext + dot_pdf
 
     # 2.3 Formatting Variables, fonts, locale settings, clear command line
     #locale.setlocale(locale.LC_ALL, 'en_US')  # see python doc 22.2 internationalization
@@ -490,9 +494,9 @@ def create_labels_pdf(all_unique_labels_lst, sticker_type, production_date, expi
     expiration_date_print = expiration_date
 
     # 10.3 Destination Filename Variable that includes dates
-    file_datetime = format_datetime(datetime.datetime.now(), "yyyy-MM-dd-kk-mm-ss", locale='es_GT')
+    # file_datetime = format_datetime(datetime.datetime.now(), "yyyy-MM-dd-kk-mm-ss", locale='es_GT')
     # date_time_fileName_PDF_w_ext = file_datetime + dash + dest_filename + dot_pdf
-    date_time_fileName_PDF_w_ext = 'Label' + file_datetime + dot_pdf
+    # date_time_fileName_PDF_w_ext = 'Label-' + file_datetime + dot_pdf
     #######################################################################################
     #
     #   11. Currency formatting
@@ -588,7 +592,7 @@ def create_labels_pdf(all_unique_labels_lst, sticker_type, production_date, expi
     Create a PDFCanvas object where we will deposit all the  elements of the PDF. drawing object, and then add the barcode to the drawing. Add styles to platypus style Then using renderPDF, you place
     the drawing on the PDF. Finally, you save the file.
     """
-    PDFcanvas = canvas.Canvas((str(file_path) + str(date_time_fileName_PDF_w_ext)))
+    PDFcanvas = canvas.Canvas((str(server_file_path) + str(date_time_fileName_PDF_w_ext)))
     PDFcanvas.setPageSize((label_width_mm*mm, label_height_mm*mm))
 
     ###################################################################################
@@ -758,51 +762,77 @@ def create_labels_pdf(all_unique_labels_lst, sticker_type, production_date, expi
 
         PDFcanvas.showPage()
 
-    if os.path.exists(file_path):
+    if os.path.exists(server_file_path):
         PDFcanvas.save()
     else:
         # This portion creates the folder where the sticker file will be saved to.
-        frappe.create_folder(file_path)
+        frappe.create_folder(server_file_path)
         # This portion creates the folder and saves it to the sites directory specified.
         PDFcanvas.save()
 
-    saved_status = create_file_doctype_and_attach(file_path, str(date_time_fileName_PDF_w_ext))
+    # saved_status = create_file_doctype_and_attach(server_file_path, date_time_fileName_PDF_w_ext)
+    # return saved_status
+    file_url = f'files/pdflabels/{date_time_fileName_PDF_w_ext}'
+    
+    return file_url
 
-    return saved_status
 
-
-def create_file_doctype_and_attach(file_path, file_name):
-
-    bytes_archivo = os.path.getsize((str(file_path) + str(file_name)))
-    file_url = f'/files/pdflabels/{file_name}'
-    file_access_url = f'/files/pdflabels/{file_name}'
+def create_file_doctype_and_attach():
+    file_size = os.path.getsize((str(server_file_path) + str(date_time_fileName_PDF_w_ext)))
+    # This represents the relative file url and file name, starting at the public/ directory, with a front hash
+    file_url = f'files/pdflabels/{date_time_fileName_PDF_w_ext}'
+    # This represents the entire URL from http ->  onward!
+    file_url_for_file_doctype = f'/public{file_url}'
+    short_url = f'pdflabels/{date_time_fileName_PDF_w_ext}'
 
     try:
         """
-        try:
-            nuevo_archivo = frappe.new_doc("File")
-            nuevo_archivo.docstatus = 0
-            nuevo_archivo.file_name = str(file_name)
-            nuevo_archivo.file_url = file_url
-            nuevo_archivo.attached_to_name = str(file_name)
-            nuevo_archivo.file_size = bytes_archivo
-            # nuevo_archivo.content_hash = get_content_hash(file_url)
-            nuevo_archivo.is_home_folder = 0
-            nuevo_archivo.if_folder = 0
-            nuevo_archivo.folder = 'Home/Attachments'
-            nuevo_archivo.is_private = 0
-            nuevo_archivo.old_parent = 'Home/Attachments'
-            nuevo_archivo.save(ignore_permissions=True)
+        nuevo_archivo = frappe.new_doc("File")
+        nuevo_archivo.docstatus = 0
+        nuevo_archivo.file_name = str(file_name)
+        nuevo_archivo.file_url = file_url
+        nuevo_archivo.attached_to_name = str(file_name)
+        nuevo_archivo.file_size = bytes_archivo
+        # nuevo_archivo.content_hash = get_content_hash(file_url)
+        nuevo_archivo.is_home_folder = 0
+        nuevo_archivo.if_folder = 0
+        nuevo_archivo.folder = 'Home/attachments'
+        nuevo_archivo.is_private = 0
+        nuevo_archivo.old_parent = 'Home/attachments'
+        nuevo_archivo.save(ignore_permissions=True)
         """
-    except:
-        frappe.msgprint(_('''Cannot properly make out the url of the file you want.'''))
+        if not frappe.db.exists('File', {'file_name': file_name}):
+            new_file = frappe.new_doc("File") # OK
+            new_file.docstatus = 0 # OK
+            new_file.file_name = date_time_fileName_PDF_w_ext # OK
+            # If private
+            # If public 
+            # NO file name only: filename.pdf  NO
+            # NO file name with one dir up: pdflabels/filename.pdf
+            # NO file name with one dir up and slash: /pdflabels/filename.pdf
+            # NO file name with two dir up and slash: files/pdflabels/filename.pdf
+            # YES file name with two dir up and slash: /files/pdflabels/filename.pdf
+            # NO file name with three dir up and slash: public/files/pdflabels/filename.pdf
+            # NO file name with three dir up and slash: /public/files/pdflabels/filename.pdf
+            new_file.file_url = f'files/pdflabels/{file_name}' # FIXME
+            new_file.file_size = file_size # OK
+            new_file.folder = 'Home/Attachments' #OK
+            new_file.is_private = 0
+            new_file.is_home_folder = 0
+            new_file.if_folder = 0
+            #new_file.attached_to_name = ''
+            #new_file.content_hash = get_content_hash(file_url)
+            new_file.insert(ignore_permissions=True)
+            frappe.msgprint(_(frappe.get_traceback()))
+            return file_url
 
-        """ 
-            frappe.msgprint(_('''Error no se pudo guardar PDF de stickers en la
-                                base de datos. Intente de nuevo.'''))
+    except:
         """
+        frappe.msgprint(_('''El PDF fue generado, sin embargo no se creo el registro en la base de datos'''))
+        """
+        return file_url
     else:
-        return file_access_url
+        return file_url
 
 # def get_content_hash(content):
 #     filedata = content.rsplit(",", 1)[1]

@@ -8,7 +8,7 @@ import json
 from datetime import datetime, date
 from frappe.utils import get_site_name
 
-from labels.resources.pdf_sticker_generator import create_labels_pdf
+from labels.resources.pdf_sticker_generator import create_labels_pdf, create_file_doctype_and_attach
 
 # This method is for debugging purposes only!
 @frappe.whitelist()
@@ -42,8 +42,10 @@ def process_labels(dict_data, sticker_type, production_date, expiration_date):
 
     # en_US: We call the labels PDF creation function, which needs a list of the items needed, the sticker type 1 of 4, production date, expiration date
     # es: Llamamos a la funcion de creacion del PDF de etiquetas, que necesita una lista de los codigos, el tipo de sticker 1 de 4, la fecha de produccion y la fecha de vencimiento.
-    status_etiqueta = create_labels_pdf(listado_items, sticker_type, production_date, expiration_date)
+    label_file_status = create_labels_pdf(listado_items, sticker_type, production_date, expiration_date)
+   
+    # create_file_doctype_and_attach()
 
     # en_US: The value returnes is the URL location of the file, generated as a public file.
     # es: El valor retornado es la url ubicacion del archivo ya generado como publico
-    return status_etiqueta
+    return label_file_status
