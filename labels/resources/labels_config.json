@@ -1,7 +1,7 @@
 {
-    "labels": {
-        "fogliasana58x31": {
-            "label_name": "Fogliasana Barcode 58 x 31", 
+    "label_formats": {
+        "barcode58x31": {
+            "label_name": "58mmx31mm EAN-13 Barcode", 
             "label_format": "", 
             "label_height_mm": 31, 
             "label_width_mm": 58, 
@@ -34,8 +34,8 @@
                 }
             ]
         },
-        "tunart-incoming-tuna": {
-            "label_name": "TUNART Incoming 105 x 155", 
+        "incoming_serial_no": {
+            "label_name": "105mmx155mm Serial No", 
             "label_format": "", 
             "label_height_mm": 155, 
             "label_width_mm": 105, 
@@ -51,7 +51,9 @@
                 {
                     "from_top_to_bottom": 1, 
                     "element_name": "Product", 
-                    "x_pos_mm": 1, 
+                    "element_type": "text",
+                    "element_content": "YFT Compra",
+                    "x_pos_mm": 1,
                     "y_pos_mm": 30, 
                     "height_mm": 0, 
                     "width_mm": 0, 
@@ -60,16 +62,62 @@
                 {
                     "from_top_to_bottom": 1, 
                     "element_name": "Product", 
+                    "element_type": "paragraph", 
+                    "element_content": "This is a Paragraph", 
+                    "x_pos_mm": 1, 
+                    "y_pos_mm": 30, 
+                    "height_mm": 0, 
+                    "width_mm": 0, 
+                    "style_name": "line4" 
+                },
+                {
+                    "from_top_to_bottom": 1, 
+                    "element_name": "Product", 
+                    "element_type": "ean13barcode", 
+                    "x_pos_mm": 1, 
+                    "y_pos_mm": 30, 
+                    "height_mm": 0, 
+                    "width_mm": 0, 
+                    "style_name": "line4",
+                    "value": "",
+                    "fontName": "Helvetica", 
+                    "fontSize": 11, 
+                    "barFillColor": "black", 
+                    "barHeight": 15, 
+                    "barWidth": 0.41, 
+                    "barStrokeWidth": 0.05, 
+                    "barStrokeColor": "black", 
+                    "textColor": "black", 
+                    "humanReadable": "TRUE", 
+                    "quiet": 0, 
+                    "lquiet": 1, 
+                    "rquiet": 1
+                },
+                {
+                    "from_top_to_bottom": 1, 
+                    "element_name": "Product", 
+                    "element_type": "image", 
+                    "x_pos_mm": 1, 
+                    "y_pos_mm": 30, 
+                    "height_mm": 0, 
+                    "width_mm": 0, 
+                    "style_name": "line4" 
+                },
+                {
+                    "from_top_to_bottom": 1, 
+                    "element_name": "Product", 
+                    "element_type": "qrcode", 
                     "x_pos_mm": 1, 
                     "y_pos_mm": 30, 
                     "height_mm": 0, 
                     "width_mm": 0, 
                     "style_name": "line4" 
                 }
+
             ]
         },
-        "tunart-outgoing-tuna": {
-            "label_name": "TUNART Box 105 x 155", 
+        "outgoing_serial_no_plus_barcode": {
+            "label_name": "105mmx155mm Serial No and EAN-13 Barcode", 
             "label_format": "", 
             "label_height_mm": 155, 
             "label_width_mm": 105, 
@@ -111,7 +159,7 @@
     },
     "styles": [
         {
-            "name": "line4", 
+            "name": "text12", 
             "fontName": "Helvetica", 
             "fontSize": 12, 
             "leading": 12, 
@@ -138,7 +186,7 @@
             "splitLongWords": 1
         },
         {
-            "name": "FSBlue", 
+            "name": "Blue", 
             "fontName": "Helvetica", 
             "fontSize": 12, 
             "leading": 12, 
@@ -165,9 +213,9 @@
             "splitLongWords": 1
         },
         {
-            "name": "line3", 
+            "name": "text14", 
             "fontName": "Helvetica", 
-            "fontSize": 12, 
+            "fontSize": 14, 
             "leading": 12, 
             "leftIndent": 0, 
             "rightIndent": 0, 

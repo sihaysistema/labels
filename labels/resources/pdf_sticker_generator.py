@@ -50,7 +50,6 @@ server_file_path = f'{site_name}/public/files/pdflabels/'
 
 dot_pdf = ".pdf"
 file_datetime = format_datetime(datetime.datetime.now(), "yyyy-MM-dd-kk-mm-ss", locale='es_GT')
-# date_time_fileName_PDF_w_ext = file_datetime + dash + dest_filename + dot_pdf
 date_time_fileName_PDF_w_ext = 'Label-' + file_datetime + dot_pdf
 
 def create_labels_pdf(all_unique_labels_lst, sticker_type, production_date, expiration_date):
@@ -60,23 +59,8 @@ def create_labels_pdf(all_unique_labels_lst, sticker_type, production_date, expi
     #   2. File Opening and Formatting variables
     #
     #######################################################################################
-    # 2.1 Variables of file and data ot open
-    # fileName_w_ext = "salida.csv"
-    # accessModeUniv_nl = "rU"
-    # accessMode_W = "w"
-    # accessMode_WB = "wb"
-    # 2.2 Register a csv Dialect  (can be changed to suit specific csv files)
-    """
-    csv.register_dialect(
-        'mydialect',
-        delimiter = str(','),
-        quotechar = str('"'),
-        doublequote = True,
-        skipinitialspace = True,
-        lineterminator = '\r\n',
-        quoting = csv.QUOTE_MINIMAL)
-    """
-    # 2.3 strip filename of extension and store it in a variable
+    # 2.1 Variables of file and data to open
+    # 2.2 strip filename of extension and store it in a variable
     # fileName_wo_ext = os.path.splitext(os.path.basename(fileName_w_ext))[0]
     # fileName_PDF_w_ext = fileName_wo_ext + dot_pdf
 
@@ -117,9 +101,7 @@ def create_labels_pdf(all_unique_labels_lst, sticker_type, production_date, expi
     html_span_open = "<span>"
     html_span_close = "</span>"
     font_path = "fonts/"
-    # load_font_roboto = "/assets/labels/fonts/roboto/Roboto-Regular.ttf"
-    load_font_roboto = frappe.get_app_path("labels", "public", "fonts", "Roboto-Regular.ttf")
-    image_logo_filename = frappe.get_app_path("labels", "public", "images", "fogliasana.jpg")
+
     # image_logo_filename = frappe.get_app_path("/", "data", "uom_data.json")
     # clear_command_line = os.system('cls' if os.name == 'nt' else 'clear')
     # clear_command_line
@@ -153,7 +135,6 @@ def create_labels_pdf(all_unique_labels_lst, sticker_type, production_date, expi
     #test_prod_desc = "Pillow Case Large"
     #test_prod_weight = "20"
     #test_prod_unit = "Oz."
-    dest_filename = "barcode-labels"
     line3_produced_date_text = "Cosecha:"
     line4_expiration_date_text = "Vence:"
     days_to_expiration = 7
@@ -570,10 +551,8 @@ def create_labels_pdf(all_unique_labels_lst, sticker_type, production_date, expi
     # line_3_text = line3_produced_date_text + production_date_print
     line_3_text = line3_produced_date_text + production_date_print
 
-
-    line_4_text = line4_expiration_date_text + expiration_date_print 
-
-
+    line_4_text = line4_expiration_date_text + expiration_date_print
+    
     below_barcode_text = below_barcode_string #currency_symb + format_price_print
 
     #######################################################################################
@@ -609,8 +588,7 @@ def create_labels_pdf(all_unique_labels_lst, sticker_type, production_date, expi
     # WIP WIP
     # label_styles = [1,2]
     # for style in label_styles:
-            # styles.add(ParagraphStyle(name=style['name'], fontName=style['fontName'], fontSize=below_barcode_font_size, leading=below_barcode_leading, leftIndent=below_barcode_left_indent, rightIndent=below_barcode_right_indent, firstLineIndent=below_barcode_first_line_indent, alignment=below_barcode_alignment, spaceBefore=below_barcode_space_before, spaceAfter=below_barcode_space_after, bulletFontName=below_barcode_bullet_font_name, bulletFontSize=below_barcode_bullet_font_size, bulletIndent=below_barcode_bullet_indent, textColor=below_barcode_text_color, backColor=below_barcode_back_color, wordWrap=below_barcode_word_wrap, borderWidth=below_barcode_border_width, borderPadding=below_barcode_border_padding, borderColor=below_barcode_border_color, borderRadius=below_barcode_border_radius, allowWidows=below_barcode_allow_widows, allowOrphans=below_barcode_allow_orphans, textTransform=below_barcode_text_transform, endDots=below_barcode_end_dots, splitLongWords=below_barcode_split_long_words))
-
+    # styles.add(ParagraphStyle(name=style['name'], fontName=style['fontName'], fontSize=below_barcode_font_size, leading=below_barcode_leading, leftIndent=below_barcode_left_indent, rightIndent=below_barcode_right_indent, firstLineIndent=below_barcode_first_line_indent, alignment=below_barcode_alignment, spaceBefore=below_barcode_space_before, spaceAfter=below_barcode_space_after, bulletFontName=below_barcode_bullet_font_name, bulletFontSize=below_barcode_bullet_font_size, bulletIndent=below_barcode_bullet_indent, textColor=below_barcode_text_color, backColor=below_barcode_back_color, wordWrap=below_barcode_word_wrap, borderWidth=below_barcode_border_width, borderPadding=below_barcode_border_padding, borderColor=below_barcode_border_color, borderRadius=below_barcode_border_radius, allowWidows=below_barcode_allow_widows, allowOrphans=below_barcode_allow_orphans, textTransform=below_barcode_text_transform, endDots=below_barcode_end_dots, splitLongWords=below_barcode_split_long_words))
 
     ###################################################################################
     #
@@ -645,7 +623,7 @@ def create_labels_pdf(all_unique_labels_lst, sticker_type, production_date, expi
         #print("Current Product from tuple: " + curr_tuple_label_desc)
         ###############################################################################
         #
-        #   13.4.2 Draw the EAN-13 Code
+        #   13.4.2 Create the EAN-13 Code
         #
         ###############################################################################
         # Pass barcode creation parameters to reportlab, any order, as name=value pairs.
@@ -657,10 +635,10 @@ def create_labels_pdf(all_unique_labels_lst, sticker_type, production_date, expi
 
         ###############################################################################
         #
-        #   13.4.? Create the drawing using the same size as the label indicated above
+        #   13.4.? Create the page drawing using the same size as the label indicated above
         #
         ###############################################################################
-        #size of drawing?
+        # size of drawing.
         
         d = Drawing(label_width_mm*mm, label_height_mm*mm)
 
@@ -690,10 +668,10 @@ def create_labels_pdf(all_unique_labels_lst, sticker_type, production_date, expi
         #   13.4.? Add the barcode and position it on the PDFcanvas
         #
         ###############################################################################
-
-        d.add(barcode_eanbc13)
         # Place the generated barcode on the page.
-        # (Drawing object, Barcode object, x position, y position)
+        d.add(barcode_eanbc13)
+        
+        # en_us: Drawing the d.object unto the PDF canvas, x position, y position
         renderPDF.draw(d, PDFcanvas, 0, 0)
 
         #PDFcanvas.setFont('vera', 32)
