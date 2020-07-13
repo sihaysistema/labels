@@ -53,8 +53,8 @@
                     "element_name": "Product", 
                     "element_type": "text",
                     "element_content": "YFT Compra",
-                    "x_pos_mm": 1,
-                    "y_pos_mm": 30, 
+                    "x_pos_mm": 40,
+                    "y_pos_mm": 130, 
                     "height_mm": 0, 
                     "width_mm": 0, 
                     "style_name": "line4"

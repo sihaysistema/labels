@@ -177,6 +177,7 @@ frappe.ui.form.on("Purchase Receipt", {
                         indicator: 'orange',
                         message: r.message
                     });
+                    window.open(r.message);
                 }
                 });
             });
