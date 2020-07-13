@@ -58,62 +58,7 @@
                     "height_mm": 0, 
                     "width_mm": 0, 
                     "style_name": "line4"
-                },
-                {
-                    "from_top_to_bottom": 1, 
-                    "element_name": "Product", 
-                    "element_type": "paragraph", 
-                    "element_content": "This is a Paragraph", 
-                    "x_pos_mm": 1, 
-                    "y_pos_mm": 30, 
-                    "height_mm": 0, 
-                    "width_mm": 0, 
-                    "style_name": "line4" 
-                },
-                {
-                    "from_top_to_bottom": 1, 
-                    "element_name": "Product", 
-                    "element_type": "ean13barcode", 
-                    "x_pos_mm": 1, 
-                    "y_pos_mm": 30, 
-                    "height_mm": 0, 
-                    "width_mm": 0, 
-                    "style_name": "line4",
-                    "value": "",
-                    "fontName": "Helvetica", 
-                    "fontSize": 11, 
-                    "barFillColor": "black", 
-                    "barHeight": 15, 
-                    "barWidth": 0.41, 
-                    "barStrokeWidth": 0.05, 
-                    "barStrokeColor": "black", 
-                    "textColor": "black", 
-                    "humanReadable": "TRUE", 
-                    "quiet": 0, 
-                    "lquiet": 1, 
-                    "rquiet": 1
-                },
-                {
-                    "from_top_to_bottom": 1, 
-                    "element_name": "Product", 
-                    "element_type": "image", 
-                    "x_pos_mm": 1, 
-                    "y_pos_mm": 30, 
-                    "height_mm": 0, 
-                    "width_mm": 0, 
-                    "style_name": "line4" 
-                },
-                {
-                    "from_top_to_bottom": 1, 
-                    "element_name": "Product", 
-                    "element_type": "qrcode", 
-                    "x_pos_mm": 1, 
-                    "y_pos_mm": 30, 
-                    "height_mm": 0, 
-                    "width_mm": 0, 
-                    "style_name": "line4" 
                 }
-
             ]
         },
         "outgoing_serial_no_plus_barcode": {
@@ -151,13 +96,13 @@
             ]
         }
     },
-    "colors": {
+    "label_colors": {
         "hex_pantone_3005_c_blue": "#0075c9", 
         "hex_pantone_360_c_green": "#6cc04a", 
         "hex_pantone_000_c_white": "#ffffff", 
         "hex_pantone_black": "#000000"
     },
-    "styles": [
+    "label_styles": [
         {
             "name": "text12", 
             "fontName": "Helvetica", 

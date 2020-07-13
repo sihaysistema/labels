@@ -3,8 +3,11 @@ from __future__ import unicode_literals
 import frappe
 from frappe import _
 import os, sys
+import locale
+locale.setlocale(locale.LC_ALL, str('en_US.UTF-8'))
 import hashlib, base64, string, json, pytz
-from datetime import datetime, date
+import datetime
+# from datetime import datetime, date
 from frappe.utils import get_site_name
 
 from six import text_type, PY2, string_types
@@ -46,12 +49,11 @@ from babel.numbers import format_number, format_decimal, format_percent
 # Higher width numbers move the element to the right, lower width numbers move the element left.
 # We open the configuration JSON file  TODO: Some of this must be replaced with data from database, for development purposes only.
 
-def new_create_labels_pdf(all_unique_labels_lst, selected_label_format="incoming_serial_no", ):
+def new_create_labels_pdf(unique_item_list, selected_label_format="incoming_serial_no", receipt_date="13-07-2020"):
     """
     selected_label_format = Must be an existing label_formats item in label_config.json!!!!!
     """
-    # en_US: We initialize the variables:
-    label_config_file, data, labels, colors, styles
+
     #######################################################################################
     #
     #   1. Get date and time, create filename, site name, server file path, fonts and images.
@@ -61,7 +63,6 @@ def new_create_labels_pdf(all_unique_labels_lst, selected_label_format="incoming
     time_now_timezone = datetime.datetime.now(pytz.timezone(frappe.db.get_single_value('System Settings', 'time_zone'))).strftime("%Y-%m-%d-%H-%M-%S")
     # 1.2 Using standard datetime module, UTC time.
     # file_datetime = format_datetime(datetime.datetime.now(), "yyyy-MM-dd-kk-mm-ss", locale='es_GT')
-    # date_time_fileName_PDF_w_ext = 'Label-' + file_datetime + dot_pdf
     date_time_fileName_PDF_w_ext = 'Label-' + time_now_timezone + ".pdf"
     # 1.3 Get the site name and server file path where file will be stored.
     site_name = get_site_name(frappe.local.site)
@@ -72,6 +73,7 @@ def new_create_labels_pdf(all_unique_labels_lst, selected_label_format="incoming
     # 1.5 Load image for use in generating logo /public files.
     # load_font_roboto = "/resources/imageslogo.jpg"
     image_logo_filename = frappe.get_app_path("labels", "public", "images", "barcodelogo.jpg")
+    # frappe.msgprint(_("Success1"))
 
     try:
 
@@ -86,17 +88,18 @@ def new_create_labels_pdf(all_unique_labels_lst, selected_label_format="incoming
 
         # en_US: We assign the contents of each individual section to the label_formats, colors, styles variable.
         label_formats = data["label_formats"]
-        colors = data["colors"]
-        styles = data["styles"]
+        label_colors = data["label_colors"]
+        label_styles = data["label_styles"]
 
+        # frappe.msgprint(_("Success2"))
         #######################################################################################
         #
         #   3. We choose the style to be used
         #
         #######################################################################################
-        # en_US: This label's selected format, as chosen by the incoming parameter.
-        this_label = labels[selected_label_format]["label_name"]
-
+        # en_US: We create an object containing the selected label format, for access in for loop below
+        this_label_format = label_formats[selected_label_format]
+        # frappe.msgprint(_("Success3"))
         #######################################################################################
         #
         #   4. Page size / label size / margins
@@ -110,13 +113,13 @@ def new_create_labels_pdf(all_unique_labels_lst, selected_label_format="incoming
         # Label printers use the x axis as the width, same here.
         # As a general rule, the widest part of the label will be also the x axis.
         # Do not alter the orientation aspects of labels when printing, print as portrait!
-        # label_height_mm = labels[selected_label_format]["label_height_mm"]
-        # label_width_mm = labels[selected_label_format]["label_width_mm"]
+        label_height_mm = label_formats[selected_label_format]["label_height_mm"]
+        label_width_mm = label_formats[selected_label_format]["label_width_mm"]
         #Left margin in mm (helps to wrap paragraph lines)
-        lft_mgn = labels[selected_label_format]["margins"]["left_mm"]
+        lft_mgn = label_formats[selected_label_format]["margins"]["left_mm"]
         #Right margin in mm (helps to wrap paragraph lines)
-        rgt_mgn = labels[selected_label_format]["margins"]["right_mm"]
-
+        rgt_mgn = label_formats[selected_label_format]["margins"]["right_mm"]
+        # frappe.msgprint(_("Success4"))
         #######################################################################################
         #
         #   5. Fixed Variables for labels (Days until expiration, field text, etc.)
@@ -151,10 +154,10 @@ def new_create_labels_pdf(all_unique_labels_lst, selected_label_format="incoming
         rgb_pantone_black = (0,0,0)
 
         # 6.2 Desired colors in HEX, obtained from the colors item list.
-        hex_pantone_3005_c_blue = colors["hex_pantone_3005_c_blue"] 
-        hex_pantone_360_c_green = colors["hex_pantone_360_c_green"]
-        hex_pantone_000_c_white = colors["hex_pantone_000_c_white"]
-        hex_pantone_black = colors["hex_pantone_black"]
+        hex_pantone_3005_c_blue = label_colors["hex_pantone_3005_c_blue"] 
+        hex_pantone_360_c_green = label_colors["hex_pantone_360_c_green"]
+        hex_pantone_000_c_white = label_colors["hex_pantone_000_c_white"]
+        hex_pantone_black = label_colors["hex_pantone_black"]
 
         # 6.3 Convert colors to intensity mode 0- 100%
         rgb_pantone_black_int_red = rgb_pantone_black[0]/float(255)
@@ -177,10 +180,10 @@ def new_create_labels_pdf(all_unique_labels_lst, selected_label_format="incoming
         stk_red = rgb_pantone_black_int_red
         stk_grn = rgb_pantone_black_int_grn
         stk_blu = rgb_pantone_black_int_blu
-        
+        # frappe.msgprint(_("Success6"))
         #######################################################################################
         #
-        #   8. Move everything by x or y mm
+        #   7. Move everything by x or y mm
         #
         #######################################################################################
         # 8.1 This moves everything by the specified mm. Useful for adjustments on the fly!
@@ -188,18 +191,18 @@ def new_create_labels_pdf(all_unique_labels_lst, selected_label_format="incoming
         # x axis + moves to right, - moves to left
         # y axis + moves up, - moves down
         # TODO:  Not working, must be included in every measurement insertion.
-        move_x_mm = labels[selected_label_format]["move_x_mm"]
-        move_y_mm = labels[selected_label_format]["move_y_mm"]
+        move_x_mm = label_formats[selected_label_format]["move_x_mm"]
+        move_y_mm = label_formats[selected_label_format]["move_y_mm"]
 
         #######################################################################################
         #
-        #   9. Rotate everything 90 deg to the right, upside down, 90 to the left TODO: Pending!
+        #   8. Rotate everything 90 deg to the right, upside down, 90 to the left TODO: Pending!
         #
         #######################################################################################
 
         #######################################################################################
         #
-        #   10. Positions of elements on page
+        #   9. Positions of elements on page
         #
         #######################################################################################
         # 10.1 Element Individual Starting Positions
@@ -246,15 +249,37 @@ def new_create_labels_pdf(all_unique_labels_lst, selected_label_format="incoming
         image_logo_x_pos_mm = 16       # 51mm x 38mm default = 0
         image_logo_y_pos_mm = 30       # 51mm x 38mm default = 0
         image_logo_height_mm = 5      # 51mm x 38mm default = 5
+        # frappe.msgprint(_("Success9"))
 
         #######################################################################################
         #
-        #   10. Element Wrappers. in mm. Creates a "virtual box" so that text doesn't flow out
+        #   10. Barcode Style parameters
         #
         #######################################################################################
+        # 10.1 FONTS Available fonts for the barcode human readable text
+        # Helvetica, Mac expert, standard, symbol, winansi, zapfdingbats, courier, courier bold corierboldoblique courieroblique, helvetica bold, helvetica bold oblique, symbol, times bold times bold italic times italic timesroman zapfdingbats.
+        # 10.2.1 Color. method. default = colors.black, or colors.Color(R,G,B,1), or colors.
+        bar_fill_color = colors.Color(bar_red,bar_grn,bar_blu,alpha=1)
+        # 10.2.2 Height, Width, stroke width
+        bar_height_mm = 15                                              # Number. default =  13
+        bar_width_mm = .41                                              # Number. default = .41
+        bar_stroke_width = .05                                          # Number. default = .05
+        # 10.2.3 Stroke Color. method. default = colors.black
+        bar_stroke_color = colors.Color(stk_red,stk_grn,stk_blu,alpha=1)
+        # 10.2.4 Human Readable text color. method. default = colors.black
+        barcode_text_color = colors.Color(txt_red,txt_grn,txt_blu,alpha=1)
 
-        #line_1_2_x_wrap_mm = label_width_mm-lft_mgn-rgt_mgn
-        #line_1_2_y_wrap_mm = label_height_mm-bar_height_mm
+        """
+        #Check this one out!
+        http://pydoc.net/Python/reportlab/3.3.0/reportlab.graphics.barcode/
+        """
+
+        # frappe.msgprint(_("Success10"))
+        #######################################################################################
+        #
+        #   11. Element Wrappers. in mm. Creates a "virtual box" so that text doesn't flow out
+        #
+        #######################################################################################
 
         prod_x_wrap_mm = label_width_mm-lft_mgn-rgt_mgn
         prod_y_wrap_mm = label_height_mm-bar_height_mm
@@ -274,21 +299,24 @@ def new_create_labels_pdf(all_unique_labels_lst, selected_label_format="incoming
         #Create a wrapper for label series, so text cuts off rather than intrude elsewhere
         label_series_x_wrap_mm = label_width_mm-lft_mgn-rgt_mgn
         label_series_y_wrap_mm = label_height_mm-bar_height_mm
+        
+        # frappe.msgprint(_("Success11"))
 
         #######################################################################################
         #
-        #   11. Program variables that involve flow control  CAREFUL!
+        #   12. Program variables that involve flow control  CAREFUL!
         #
         #######################################################################################
 
-        # 11.1  THE VALID PREFIX.  If you change this, no barcodes will be printed!
+        # 12.1  THE VALID PREFIX.  If you change this, no barcodes will be printed!
         # This prefix must be the one issued by GS1 or prefix issuing authority in your locality.
         valid_gs1_prefix = "74011688"
-        # 11.2 Search string used right before product name
+        # 12.2 Search string used right before product name
         # PLEASE NOTE: Label must be an Item in ERPNext, part of the Bill of Materials of the sales item, and the name must beign with this string, otherwise, the label will not be counted.
         desc_search_string = "Etiqueta Normal"
-        desc_ending_html = html_par_close
+        # desc_ending_html = html_par_close
 
+        # frappe.msgprint(_("Success12"))
         #######################################################################################
         #
         #   12. date calculations (default date is today)
@@ -299,19 +327,16 @@ def new_create_labels_pdf(all_unique_labels_lst, selected_label_format="incoming
         # default= today, or can be specified date(2016, 14, 11)
         # production_date = datetime.date.today()
         # production_date_print = format_date(production_date,"dd.LLLyyyy" ,locale='es_GT')
-        production_date_print = production_date
+        # production_date_print = production_date
 
         # 12.2 Expiration date calculation and formatting
         #Calculates from the production date stated above.
         # expiration_date = production_date + datetime.timedelta(days=days_to_expiration) 
         # expiration_date = expiration_date
         # expiration_date_print = format_date(expiration_date,"dd.LLLyyyy" ,locale='es_GT')
-        expiration_date_print = expiration_date
+        # expiration_date_print = expiration_date
 
-        # 12.3 Destination Filename Variable that includes dates
-        # file_datetime = format_datetime(datetime.datetime.now(), "yyyy-MM-dd-kk-mm-ss", locale='es_GT')
-        date_time_fileName_PDF_w_ext = 'Label-' + file_datetime + dot_pdf
-
+        # frappe.msgprint(_("Success12"))
         #######################################################################################
         #
         #   13. Currency formatting
@@ -323,7 +348,7 @@ def new_create_labels_pdf(all_unique_labels_lst, selected_label_format="incoming
         # below format with commas and two decimal points.
         #test_format_price = locale.format("%0.2f",test_price, grouping=True)
         format_price_print = format_decimal(test_price, format='#,##0.##;-#', locale='es_GT')
-
+        # frappe.msgprint(_("Success13"))
         ######################################################
         #
         #   14. mm to point converter
@@ -335,19 +360,6 @@ def new_create_labels_pdf(all_unique_labels_lst, selected_label_format="incoming
         will shift the position of all the items in the label together, when specified by the user.
 
         """
-
-        prod_x_pos = (prod_x_pos_mm+move_x_mm)*mm #10
-        prod_y_pos = (prod_y_pos_mm+move_y_mm)*mm #95
-
-        line_3_x_pos = (line_3_x_pos_mm+move_x_mm)*mm #10
-        line_3_y_pos = (line_3_y_pos_mm+move_y_mm)*mm #75
-
-        line_4_x_pos = (line_4_x_pos_mm+move_x_mm)*mm #10
-        line_4_y_pos = (line_4_y_pos_mm+move_y_mm)*mm #65
-
-        barcode_x_pos = (barcode_x_pos_mm+move_x_mm)*mm #10
-        barcode_y_pos = (barcode_y_pos_mm+move_y_mm)*mm #95
-
         bar_width = bar_width_mm*mm
         bar_height = bar_height_mm*mm
 
@@ -376,18 +388,17 @@ def new_create_labels_pdf(all_unique_labels_lst, selected_label_format="incoming
         label_series_y_wrap = (label_series_y_wrap_mm+move_y_mm)*mm
 
         image_logo_height = (image_logo_height_mm+move_y_mm)*mm
-
+        # frappe.msgprint(_("Success14"))
         ######################################################
         #
         #   15. Concatenating the text strings
         #
         ######################################################
         #15.1 Concatenating the Strings required by the label.
-        # line_3_text = line3_produced_date_text + production_date_print
-        line_3_text = line3_produced_date_text + production_date_print
-        line_4_text = line4_expiration_date_text + expiration_date_print 
+        line_3_text = line3_produced_date_text + "" #production_date_print
+        line_4_text = line4_expiration_date_text + "" #expiration_date_print 
         below_barcode_text = below_barcode_string #currency_symb + format_price_print
-
+        # frappe.msgprint(_("Success15"))
         ###################################################################################
         #
         #   16. Create a Canvas PDF object to contain everything. One PDF canvas per page.
@@ -399,19 +410,19 @@ def new_create_labels_pdf(all_unique_labels_lst, selected_label_format="incoming
         Then using renderPDF, you place the drawing on the PDF. Finally, you save the file.
         """
         PDFcanvas = canvas.Canvas((str(server_file_path) + str(date_time_fileName_PDF_w_ext)))
-        PDFcanvas.setPageSize((labels[selected_label_format]["label_width_mm"]*mm, labels[selected_label_format]["label_height_mm"]*mm))
-
+        PDFcanvas.setPageSize((label_width_mm*mm, label_height_mm*mm))
+        # frappe.msgprint(_("Success16"))
         ###################################################################################
         #
         #   17. Apply paragraph styles for entire document
         #
         ###################################################################################
         # en_US: Create a stylesheet object instance
-        label_styles = getSampleStyleSheet()
+        load_label_styles = getSampleStyleSheet()
         # en_US: Iterate over each style included in the label_config.json and make it available for our PDF generation purposes.
-        for each_style in styles:
-            label_styles.add(ParagraphStyle(name=styles["name"], fontName=styles["fontName"], fontSize=styles["fontSize"], leading=styles["leading"], leftIndent=styles["leftIndent"], rightIndent=styles["rightIndent"], firstLineIndent=styles["firstLineIndent"], alignment=styles["alignment"], spaceBefore=styles["spaceBefore"], spaceAfter=styles["spaceAfter"], bulletFontName=styles["bulletFontName"], bulletFontSize=styles["bulletFontSize"], bulletIndent=styles["bulletIndent"], textColor=styles["textColor"], backColor=styles["backColor"], wordWrap=styles["wordWrap"], borderWidth=styles["borderWidth"], borderPadding=styles["borderPadding"], borderColor=styles["borderColor"], borderRadius=styles["borderRadius"], allowWidows=styles["allowWidows"], allowOrphans=styles["allowOrphans"], textTransform=styles["textTransform"], endDots=styles["endDots"], splitLongWords=styles["splitLongWords"]))
-
+        for each_style in label_styles:
+            load_label_styles.add(ParagraphStyle(name=each_style["name"], fontName=each_style["fontName"], fontSize=each_style["fontSize"], leading=each_style["leading"], leftIndent=each_style["leftIndent"], rightIndent=each_style["rightIndent"], firstLineIndent=each_style["firstLineIndent"], alignment=each_style["alignment"], spaceBefore=each_style["spaceBefore"], spaceAfter=each_style["spaceAfter"], bulletFontName=each_style["bulletFontName"], bulletFontSize=each_style["bulletFontSize"], bulletIndent=each_style["bulletIndent"], textColor=each_style["textColor"], backColor=each_style["backColor"], wordWrap=each_style["wordWrap"], borderWidth=each_style["borderWidth"], borderPadding=each_style["borderPadding"], borderColor=each_style["borderColor"], borderRadius=each_style["borderRadius"], allowWidows=each_style["allowWidows"], allowOrphans=each_style["allowOrphans"], textTransform=each_style["textTransform"], endDots=each_style["endDots"], splitLongWords=each_style["splitLongWords"]))
+            # frappe.msgprint(_("Success17"))
         ###################################################################################
         #
         #   18. Set the FONT load_font_roboto = font_path + "roboto/Roboto-Regular.ttf"
@@ -427,7 +438,7 @@ def new_create_labels_pdf(all_unique_labels_lst, selected_label_format="incoming
         #
         ###################################################################################
         # The enumerate function allows access to the list or dictionary items while the for loop iterates
-        for index, each_label_tuple in enumerate(all_unique_labels_lst):
+        for index, each_label_object in enumerate(unique_item_list):
             # Index variable is initiated above, and returns the index or position of the list item being iterated.
             # print("this is the index: " + str(index))
             # each_label_tuple is initiated above, and is usedby enumerate to return the
@@ -441,22 +452,23 @@ def new_create_labels_pdf(all_unique_labels_lst, selected_label_format="incoming
             ###############################################################################
 
             PDFcanvas.setFillColorRGB(txt_red,txt_grn,txt_blu) #choose your font color
-
+            # frappe.msgprint(_("Success19.2"))
             ###############################################################################
             #
             #   19.3 Create the individual page using the same size as the label indicated above
             #
             ###############################################################################
             # en_US: Creates a page drawing object for each label.
-            page = Drawing(labels[selected_label_format]["label_width_mm"]*mm, labels[selected_label_format]["label_height_mm"]*mm)
-
-            for element in labels[selected_label_format]["elements"]:
+            page = Drawing(label_width_mm*mm, label_height_mm*mm)
+            # frappe.msgprint(_("Success19.3A"))
+            for element in this_label_format["elements"]:
                 # en_US: We check which type of element we need to draw
                 if element["element_type"] == "text":
                     # en_US: If one of the elements has text, then you add it to the PDF Canvas.
-                    PDFcanvas.drawString(element["element_type"][x_pos_mm]*mm,element["element_type"][y_pos_mm]*mm,element["element_type"]["element_content"])
+                    # frappe.msgprint(_("Success-ISTEXT"))  OK UP TP HERE.  If the label style contains a text element, it loads it.
+                    PDFcanvas.drawString(element["x_pos_mm"]*mm,element["y_pos_mm"]*mm,element["element_content"])
+                    # frappe.msgprint(_("Success-ISTEXT"))
                 elif element["element_type"] == "paragraph":
-
                     ###############################################################################
                     #
                     #   13.4.? Add the Product description as a paragraph
@@ -508,33 +520,11 @@ def new_create_labels_pdf(all_unique_labels_lst, selected_label_format="incoming
                     #line_1_and_2 = '<font name="Helvetica" size="12">%s</font>'
                     #line_1_and_2 = line_1_and_2 % line_1_txt
 
-
                 elif element["element_type"] == "ean13barcode":
-                    #######################################################################################
-                    #
-                    #   7. Barcode Style parameters
-                    #
-                    #######################################################################################
-                    # 7.1 FONTS Available fonts for the barcode human readable text
-                    # Helvetica, Mac expert, standard, symbol, winansi, zapfdingbats, courier, courier bold corierboldoblique courieroblique, helvetica bold, helvetica bold oblique, symbol, times bold times bold italic times italic timesroman zapfdingbats.
-                    # 7.2.1 Color. method. default = colors.black, or colors.Color(R,G,B,1), or colors.
-                    bar_fill_color = colors.Color(bar_red,bar_grn,bar_blu,alpha=1)
-                    # 7.2.2 Height, Width, stroke width
-                    bar_height_mm = 15                                              # Number. default =  13
-                    bar_width_mm = .41                                              # Number. default = .41
-                    bar_stroke_width = .05                                          # Number. default = .05
-                    # 7.2.3 Stroke Color. method. default = colors.black
-                    bar_stroke_color = colors.Color(stk_red,stk_grn,stk_blu,alpha=1)
-                    # 7.2.4 Human Readable text color. method. default = colors.black
-                    barcode_text_color = colors.Color(txt_red,txt_grn,txt_blu,alpha=1)
-
-                    """
-                    #Check this one out!
-                    http://pydoc.net/Python/reportlab/3.3.0/reportlab.graphics.barcode/
-                    """
                     # 7.4 Defining the quiet space value
-                    if barcode_use_quiet_space == 'yes':
-                        quiet_space = 'TRUE'
+                    #if barcode_use_quiet_space == 'yes':
+                    #    quiet_space = 'TRUE'
+
                     ###############################################################################
                     #
                     #   19.2.1 Obtain the contents of the unique label list tuples
@@ -570,32 +560,12 @@ def new_create_labels_pdf(all_unique_labels_lst, selected_label_format="incoming
                 elif element["element_type"] == "image":
                     # # en_US: PDFcanvas.drawImage(image_logo_filename, image_logo_x_pos, image_logo_y_pos, width=None, height=image_logo_height, mask=None, preserveAspectRatio=True,  anchor='c')
                     renderPDF.draw(page, PDFcanvas, 0, 0)
+                """
                 elif element["element_type"] == "qrcode":
-                    # draw qrcode 
-                else:
+                    # draw qrcode
+                """
 
-
-
-
-            ###############################################################################
-            #
-            #   13.4.? Add line 4 (below line 3) as a paragraph
-            #
-            ###############################################################################
-
-            
-
-            ###############################################################################
-            #
-            #   13.4.? Add below barcode as a paragraph
-            #   NOTE:  This is NOT the group of human readable numbers below barcode!
-            ###############################################################################
-
-            label_below_barcode_area = Paragraph(below_barcode_text, style=styles["below-barcode"])
-            label_below_barcode_area.wrapOn(PDFcanvas, below_barcode_x_wrap, below_barcode_y_wrap)
-            label_below_barcode_area.drawOn(PDFcanvas, below_barcode_x_pos, below_barcode_y_pos, mm)
-
-            PDFcanvas.showPage()
+                PDFcanvas.showPage()
 
         if os.path.exists(server_file_path):
             PDFcanvas.save()
@@ -605,12 +575,15 @@ def new_create_labels_pdf(all_unique_labels_lst, selected_label_format="incoming
             # This portion creates the folder and saves it to the sites directory specified.
             PDFcanvas.save()
 
-
         # en_US:  We want to return the URL of the file directly for download in ERPNext.
-        return label1
+        file_url = f'files/pdflabels/{date_time_fileName_PDF_w_ext}'
+
+        # return file_url
+        return file_url
 
     except:
-        exception_message = _("Label configuration script could not be loaded. Please check ") + label_config_file
-        frappe.msgrpint(exception_message)
-        return label1
+        # exception_message = _("Label configuration script could not be loaded. Please check ") + label_config_file
+        exception_message = _("Label creation failed.")
+
+        return exception_message
 

@@ -149,7 +149,7 @@ frappe.ui.form.on("Purchase Receipt", {
                 });
                 */
                 frappe.call({
-                method: "labels.api_labels.process_labels_2",
+                method: "labels.api_labels.process_labels3",
                 args: {
                     /*
                     dict_data: cur_frm.doc.po_items,
@@ -158,10 +158,18 @@ frappe.ui.form.on("Purchase Receipt", {
                     expiration_date: cur_frm.doc.label_expiration_date
                     */
                    // Dummy Data
-                   dict_data: 1,
-                   sticker_type: 1,
-                   production_date: 1,
-                   expiration_date: 1
+                   dict_data: [
+                       {
+                           "item_name": "Atun de compra",
+                           "serial_no": "YFT2020-07-13-02398"
+                       },
+                       {
+                           "item_name": "Atun de compra",
+                           "serial_no": "YFT2020-07-13-01685"
+                       }
+                   ],
+                   label_format: "incoming_serial_no",
+                   receipt_date: "13-07-2020"
                 },
                 callback: function (r) {
                     // We show an alert that the stickers have been generated
