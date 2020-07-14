@@ -60,17 +60,32 @@ def process_labels_2(dict_data, sticker_type, production_date, expiration_date):
     return result
 
 @frappe.whitelist()
-def process_labels3(dict_data, label_format, receipt_date):
+def purchase_receipt_labels(dict_data, label_format, receipt_date):
     '''Procesa la data y cantidad para generacion de sticker'''
 
     # Carga como json-diccionario la data recibida
     selected_items = json.loads(dict_data)
+    # frappe.msgprint(_(str(selected_items2)))
+    # en_US: Declare a unique labels to print list, which will be filled with objects containing item name and serial number.
+    unique_labels_to_print = []
+    # en_US: First we loop through each purchase receipt item in the item_list, as user might have several item lines.
+    for purchase_receipt_item in selected_items:
+        # en_US: The serial number magic happens here. We get the contents and split the lines up. Each line is one serial number!
+        unique_serial_no = purchase_receipt_item["serial_no"].split('\n')
+        # en_US: Now we can loop through these unique serial numbers, and we create the objects that will change the look on our label.
+        for serial_no in unique_serial_no:
+            label_contents = {
+                "item_name": purchase_receipt_item["item_name"],
+                "serial_no": serial_no
+                }
+            # en_US: Append to the list.
+            unique_labels_to_print.append(label_contents)
 
     # Guardara n items, cada item corresponde a una etiqueta
 
     # en_US: We call the labels PDF creation function, which needs a list of the items needed, the sticker type 1 of 4, production date, expiration date
     # es: Llamamos a la funcion de creacion del PDF de etiquetas, que necesita una lista de los codigos, el tipo de sticker 1 de 4, la fecha de produccion y la fecha de vencimiento.
-    label_file_status = new_create_labels_pdf(selected_items, label_format, receipt_date)
+    label_file_status = new_create_labels_pdf(unique_labels_to_print, receipt_date, label_format)
    
     # create_file_doctype_and_attach()
 

@@ -98,10 +98,12 @@ frappe.ui.form.on("Purchase Receipt", {
                         label: __('Estilo de sticker'),
                         reqd: true,
                         options: [
-                            "Sticker sin fechas",
+                            "Ingreso 105mm x 155mm"
+                            /*
                             "Sticker con fecha de cosecha",
                             "Sticker con fecha de vencimiento",
                             "Sticker con todos los datos"
+                            */
                         ],
                         description: __('Seleccione el estilo de sticker que desee generar')
                     },
@@ -122,9 +124,10 @@ frappe.ui.form.on("Purchase Receipt", {
             dialog.fields_dict.btn_generar.$wrapper.on('click', function (e) {
                 var estilo_sticker = '0';
 
-                if (dialog.fields_dict.sticker_type.value == 'Sticker sin fechas') {
-                    estilo_sticker = '0';
+                if (dialog.fields_dict.sticker_type.value == 'Ingreso 105mm x 155mm') {
+                    estilo_sticker = 'incoming_serial_no105x155';
                 }
+                /*
                 if (dialog.fields_dict.sticker_type.value == 'Sticker con fecha de cosecha') {
                     estilo_sticker = '1';
                 }
@@ -134,6 +137,7 @@ frappe.ui.form.on("Purchase Receipt", {
                 if (dialog.fields_dict.sticker_type.value == 'Sticker con todos los datos') {
                     estilo_sticker = '3';
                 }
+                */
 
                 // Frappe call that simply opens a google page in a new tab or window  (for debugging API methods.)
                 /*
@@ -149,27 +153,32 @@ frappe.ui.form.on("Purchase Receipt", {
                 });
                 */
                 frappe.call({
-                method: "labels.api_labels.process_labels3",
+                method: "labels.api_labels.purchase_receipt_labels",
                 args: {
+
                     /*
-                    dict_data: cur_frm.doc.po_items,
+                    dict_data: cur_frm.doc.items,
                     sticker_type: estilo_sticker,
                     production_date: cur_frm.doc.label_production_date,
                     expiration_date: cur_frm.doc.label_expiration_date
                     */
-                   // Dummy Data
-                   dict_data: [
-                       {
-                           "item_name": "Atun de compra",
-                           "serial_no": "YFT2020-07-13-02398"
-                       },
-                       {
-                           "item_name": "Atun de compra",
-                           "serial_no": "YFT2020-07-13-01685"
-                       }
-                   ],
-                   label_format: "incoming_serial_no",
-                   receipt_date: "13-07-2020"
+                    // Dummy Data
+                    /*
+                    dict_data: [
+                        {
+                            "item_name": "Atun de compra",
+                            "serial_no": "YFT2020-07-13-02398"
+                        },
+                        {
+                            "item_name": "Atun de compra",
+                            "serial_no": "YFT2020-07-13-01685"
+                        }
+                    ],
+                    */
+                    dict_data: cur_frm.doc.items,
+                    label_format: estilo_sticker,
+                    receipt_date: "13-07-2020"
+                    
                 },
                 callback: function (r) {
                     // We show an alert that the stickers have been generated

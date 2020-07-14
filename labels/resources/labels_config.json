@@ -34,7 +34,7 @@
                 }
             ]
         },
-        "incoming_serial_no": {
+        "incoming_serial_no105x155": {
             "label_name": "105mmx155mm Serial No", 
             "label_format": "", 
             "label_height_mm": 155, 
@@ -50,14 +50,52 @@
             "elements": [
                 {
                     "from_top_to_bottom": 1, 
-                    "element_name": "Product", 
-                    "element_type": "text",
-                    "element_content": "YFT Compra",
-                    "x_pos_mm": 40,
-                    "y_pos_mm": 130, 
+                    "element_name": "Product Name", 
+                    "element_type": "receipt_date",
+                    "x_pos_mm": 15,
+                    "y_pos_mm": 120, 
                     "height_mm": 0, 
                     "width_mm": 0, 
-                    "style_name": "line4"
+                    "style_name": "line4",
+                    "font_size": 20,
+                    "font_name": "Helvetica"
+                },
+                {
+                    "from_top_to_bottom": 1, 
+                    "element_name": "Product Name", 
+                    "element_type": "item_name",
+                    "x_pos_mm": 15,
+                    "y_pos_mm": 110, 
+                    "height_mm": 0, 
+                    "width_mm": 0, 
+                    "style_name": "line4",
+                    "font_size": 20,
+                    "font_name": "Helvetica"
+                },
+                {
+                    "from_top_to_bottom": 1, 
+                    "element_name": "Product", 
+                    "element_type": "serial_no",
+                    "element_content": "Placeholder text - Texto de ejemplo",
+                    "x_pos_mm": 15,
+                    "y_pos_mm": 100, 
+                    "height_mm": 0, 
+                    "width_mm": 0, 
+                    "style_name": "line4",
+                    "font_size": 20,
+                    "font_name": "Helvetica"
+                },
+                {
+                    "from_top_to_bottom": 1, 
+                    "element_name": "Logo", 
+                    "element_type": "logo_image", 
+                    "x_pos_px": -150, 
+                    "y_pos_px": 365, 
+                    "height_px": 55, 
+                    "width_px": 60, 
+                    "mask": "None",  
+                    "preserveAspectRatio": "True", 
+                    "anchor": "c" 
                 }
             ]
         },

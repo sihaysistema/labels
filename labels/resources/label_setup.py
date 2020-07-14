@@ -2,13 +2,14 @@
 from __future__ import unicode_literals
 import frappe
 from frappe import _
+import PIL
 import os, sys
 import locale
 locale.setlocale(locale.LC_ALL, str('en_US.UTF-8'))
 import hashlib, base64, string, json, pytz
 import datetime
 # from datetime import datetime, date
-from frappe.utils import get_site_name
+from frappe.utils import get_site_name, get_site_path, get_bench_path
 
 from six import text_type, PY2, string_types
 
@@ -27,6 +28,7 @@ from reportlab.lib.units import mm # Converts mm to points.
 from reportlab.lib import colors # Color management
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_LEFT, TA_CENTER
+# from reportlab.lib.utils import ImageReader
 
 # 1.2.2.3 Reportlab pdfgen PDF Generator canvas. Where we will "draw" our pdf document.
 from reportlab.pdfgen import canvas
@@ -39,6 +41,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 # 1.2.2.5 platypus
 from reportlab.platypus import Paragraph # Paragraph style from reportlab
 
+
 # 1.3 Babel modules
 # sudo pip install babel
 from babel import Locale
@@ -49,7 +52,7 @@ from babel.numbers import format_number, format_decimal, format_percent
 # Higher width numbers move the element to the right, lower width numbers move the element left.
 # We open the configuration JSON file  TODO: Some of this must be replaced with data from database, for development purposes only.
 
-def new_create_labels_pdf(unique_item_list, selected_label_format="incoming_serial_no", receipt_date="13-07-2020"):
+def new_create_labels_pdf(unique_item_list, receipt_date, selected_label_format="incoming_serial_no"):
     """
     selected_label_format = Must be an existing label_formats item in label_config.json!!!!!
     """
@@ -71,9 +74,9 @@ def new_create_labels_pdf(unique_item_list, selected_label_format="incoming_seri
     # load_font_roboto = "/resources/fonts/Roboto-Regular.ttf"
     load_font_roboto = frappe.get_app_path("labels", "public", "fonts", "Roboto-Regular.ttf")
     # 1.5 Load image for use in generating logo /public files.
-    # load_font_roboto = "/resources/imageslogo.jpg"
-    image_logo_filename = frappe.get_app_path("labels", "public", "images", "barcodelogo.jpg")
-    # frappe.msgprint(_("Success1"))
+    image_logo_filename = frappe.get_app_path("labels", "public", "images" , "barcodelogo.jpg")
+    # image_logo = "barcodelogo.jpg"
+    # frappe.msgprint(_(image_logo_filename))
 
     try:
 
@@ -431,7 +434,7 @@ def new_create_labels_pdf(unique_item_list, selected_label_format="incoming_seri
         #barcode_font = r"/fonts/roboto/RobotoRegular.ttf"
         #barcode_font = "fonts/roboto/RobotoRegular.ttf" FIXME
         #pdfmetrics.registerFont(TTFont('vera','RobotoRegular.ttf'))
-
+        receipt1_date = "13-07-2020"
         ###################################################################################
         #
         #   19. Loop through the list creating the individual labels
@@ -450,7 +453,7 @@ def new_create_labels_pdf(unique_item_list, selected_label_format="incoming_seri
             #   19.2 Set the text fill color for strings
             #
             ###############################################################################
-
+            
             PDFcanvas.setFillColorRGB(txt_red,txt_grn,txt_blu) #choose your font color
             # frappe.msgprint(_("Success19.2"))
             ###############################################################################
@@ -459,23 +462,31 @@ def new_create_labels_pdf(unique_item_list, selected_label_format="incoming_seri
             #
             ###############################################################################
             # en_US: Creates a page drawing object for each label.
-            page = Drawing(label_width_mm*mm, label_height_mm*mm)
+            # page = Drawing(label_width_mm*mm, label_height_mm*mm)
             # frappe.msgprint(_("Success19.3A"))
             for element in this_label_format["elements"]:
                 # en_US: We check which type of element we need to draw
-                if element["element_type"] == "text":
+                if element["element_type"] == "receipt_date":
                     # en_US: If one of the elements has text, then you add it to the PDF Canvas.
-                    # frappe.msgprint(_("Success-ISTEXT"))  OK UP TP HERE.  If the label style contains a text element, it loads it.
-                    PDFcanvas.drawString(element["x_pos_mm"]*mm,element["y_pos_mm"]*mm,element["element_content"])
-                    # frappe.msgprint(_("Success-ISTEXT"))
+                    PDFcanvas.setFont('Helvetica', 20)
+                    PDFcanvas.drawString(element["x_pos_mm"]*mm, element["y_pos_mm"]*mm, receipt_date)
+                elif element["element_type"] == "item_name":
+                    # en_US: If one of the elements has text, then you add it to the PDF Canvas.
+                    PDFcanvas.setFont('Helvetica', 20)
+                    PDFcanvas.drawString(element["x_pos_mm"]*mm, element["y_pos_mm"]*mm, each_label_object["item_name"])
+                elif element["element_type"] == "serial_no":
+                    # en_US: If one of the elements has text, then you add it to the PDF Canvas.
+                    PDFcanvas.setFont('Helvetica', 20)
+                    serial_no_txt = _("Serial No: ") + each_label_object["serial_no"]
+                    PDFcanvas.drawString(element["x_pos_mm"]*mm, element["y_pos_mm"]*mm, serial_no_txt)
                 elif element["element_type"] == "paragraph":
                     ###############################################################################
                     #
                     #   13.4.? Add the Product description as a paragraph
                     #
                     ###############################################################################
-
-                    label_prod_desc_area = Paragraph(curr_tuple_label_desc, style=styles["FSBlue"])
+                    frappe.msgprint(_("Success-ISTEXT"))
+                    label_prod_desc_area = Paragraph(curr_tuple_label_desc, style=label_styles["Blue"])
                     label_prod_desc_area.wrapOn(PDFcanvas, prod_x_wrap, prod_y_wrap)
                     label_prod_desc_area.drawOn(PDFcanvas, prod_x_pos, prod_y_pos, mm)
 
@@ -557,16 +568,21 @@ def new_create_labels_pdf(unique_item_list, selected_label_format="incoming_seri
                     # (Drawing object, Barcode object, x position, y position)
                     renderPDF.draw(page, PDFcanvas, 0, 0)
 
-                elif element["element_type"] == "image":
-                    # # en_US: PDFcanvas.drawImage(image_logo_filename, image_logo_x_pos, image_logo_y_pos, width=None, height=image_logo_height, mask=None, preserveAspectRatio=True,  anchor='c')
-                    renderPDF.draw(page, PDFcanvas, 0, 0)
-                """
-                elif element["element_type"] == "qrcode":
-                    # draw qrcode
-                """
+                elif element["element_type"] == "logo_image":
+                    try:
+                        PDFcanvas.drawImage(image_logo_filename, int(element["x_pos_px"]), int(element["y_pos_px"]), width=None,height=int(element["height_px"]),mask=None,preserveAspectRatio=True)
+                        # PDFcanvas.drawImage(image_logo_filename, element["x_pos_mm"]*mm, element["y_pos_mm"]*mm, width=None, height='30', mask=None, preserveAspectRatio=True,  anchor='c')
+                    except:
+                        frappe.msgprint(_("Could not draw image")+str(frappe.get_traceback()))
+                        """
+                        elif element["element_type"] == "qrcode":
+                            # draw qrcode
+                        """
 
-                PDFcanvas.showPage()
-
+            # For every Label Item, we must show the page.
+            PDFcanvas.showPage()
+        
+        # frappe.msgprint(_("Before if"))
         if os.path.exists(server_file_path):
             PDFcanvas.save()
         else:

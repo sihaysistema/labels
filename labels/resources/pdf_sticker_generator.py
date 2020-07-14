@@ -101,7 +101,7 @@ def create_labels_pdf(all_unique_labels_lst, sticker_type, production_date, expi
     html_span_open = "<span>"
     html_span_close = "</span>"
     font_path = "fonts/"
-
+    image_logo_filename = frappe.get_app_path("labels", "public", "images", "fogliasana.jpg")
     # image_logo_filename = frappe.get_app_path("/", "data", "uom_data.json")
     # clear_command_line = os.system('cls' if os.name == 'nt' else 'clear')
     # clear_command_line
