@@ -234,9 +234,10 @@ frappe.ui.form.on("Delivery Note", {
             dialog.fields_dict.btn_generar.$wrapper.on('click', function (e) {
                 var estilo_sticker = '0';
 
-                if (dialog.fields_dict.sticker_type.value == 'Sticker sin fechas') {
-                    estilo_sticker = '0';
+                if (dialog.fields_dict.sticker_type.value == 'Empaque 105mm x 155mm') {
+                    estilo_sticker = 'outgoing_serial_no_plus_barcode';
                 }
+                /*
                 if (dialog.fields_dict.sticker_type.value == 'Sticker con fecha de cosecha') {
                     estilo_sticker = '1';
                 }
@@ -246,6 +247,7 @@ frappe.ui.form.on("Delivery Note", {
                 if (dialog.fields_dict.sticker_type.value == 'Sticker con todos los datos') {
                     estilo_sticker = '3';
                 }
+                */
 
                 // Frappe call that simply opens a google page in a new tab or window  (for debugging API methods.)
                 /*
