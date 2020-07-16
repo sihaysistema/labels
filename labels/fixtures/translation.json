@@ -1,0 +1,44 @@
+[
+ {
+  "contributed_translation_doctype_name": null,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "es",
+  "modified": "2020-07-15 17:40:21.573050",
+  "name": "57e166dc1b",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "source_name": "Please select the label style you wish to create",
+  "status": "Saved",
+  "target_name": "Seleccione el estilo de etiqueta que desee generar"
+ },
+ {
+  "contributed_translation_doctype_name": null,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "es",
+  "modified": "2020-07-15 17:41:49.535401",
+  "name": "2a46fb2d74",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "source_name": "Create labels",
+  "status": "Saved",
+  "target_name": "Crear etiquetas"
+ },
+ {
+  "contributed_translation_doctype_name": null,
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "es",
+  "modified": "2020-07-15 17:42:32.645245",
+  "name": "cec658c27a",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "source_name": "Label style",
+  "status": "Saved",
+  "target_name": "Estilo de etiqueta"
+ }
+]

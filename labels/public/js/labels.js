@@ -90,12 +90,12 @@ frappe.ui.form.on("Purchase Receipt", {
 
             // Instanciando un dialogo con sus propiedades
             let dialog = new frappe.ui.Dialog({
-                title: __('Generar Stickers'),
+                title: __('Create Labels'),
                 fields: [
                     {
                         fieldtype: 'Select',
                         fieldname: 'sticker_type',
-                        label: __('Estilo de sticker'),
+                        label: __('Label Style'),
                         reqd: true,
                         options: [
                             "Ingreso 105mm x 155mm"
@@ -105,7 +105,7 @@ frappe.ui.form.on("Purchase Receipt", {
                             "Sticker con todos los datos"
                             */
                         ],
-                        description: __('Seleccione el estilo de sticker que desee generar')
+                        description: __('Please select the label style you wish to create')
                     },
                     {
                         fieldtype: 'Button',

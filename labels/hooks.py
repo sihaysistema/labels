@@ -11,7 +11,8 @@ app_color = "#F7DC6F"
 app_email = "m.monroyc22@gmail.com"
 app_license = "GNU General Public License v3.0"
 
-fixtures = [{
+fixtures = [
+    {
         "dt": "Label Format", "filters": [
             [
                 "title", "in", [
@@ -19,6 +20,17 @@ fixtures = [{
                     "105mmx155mm Serial No",
                     "105mmx155mm Serial No and EAN-13 Barcode",
                     "105mmx155mm Customer Tracking"
+                ]
+            ]
+        ]
+    },
+        {
+        "dt": "Translation", "filters": [
+            [
+                "source_name", "in", [
+                    "Please select the label style you wish to create",
+                    "Create labels",
+                    "Label style"
                 ]
             ]
         ]
