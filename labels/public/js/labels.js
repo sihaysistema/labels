@@ -110,7 +110,7 @@ frappe.ui.form.on("Purchase Receipt", {
                     {
                         fieldtype: 'Button',
                         fieldname: 'btn_generar',
-                        label: __('Generar Stickers'),
+                        label: __('Create Labels'),
                         options: '',
                         description: __(''),
                     }
@@ -202,25 +202,23 @@ frappe.ui.form.on("Delivery Note", {
 
             // Instanciando un dialogo con sus propiedades
             let dialog = new frappe.ui.Dialog({
-                title: __('Generar Stickers'),
+                title: __('Create Labels'),
                 fields: [
                     {
                         fieldtype: 'Select',
                         fieldname: 'sticker_type',
-                        label: __('Estilo de sticker'),
+                        label: __('Label Style'),
                         reqd: true,
                         options: [
-                            "Sticker sin fechas",
-                            "Sticker con fecha de cosecha",
-                            "Sticker con fecha de vencimiento",
-                            "Sticker con todos los datos"
+                            "Ingreso 105mm x 155mm",
+                            "105mmx155mm Serial No and EAN-13 Barcode"
                         ],
-                        description: __('Seleccione el estilo de sticker que desee generar')
+                        description: __('Please select the label style you wish to create')
                     },
                     {
                         fieldtype: 'Button',
                         fieldname: 'btn_generar',
-                        label: __('Generar Stickers'),
+                        label: __('Create Labels'),
                         options: '',
                         description: __(''),
                     }
@@ -298,25 +296,23 @@ frappe.ui.form.on("Stock Entry", {
 
             // Instanciando un dialogo con sus propiedades
             let dialog = new frappe.ui.Dialog({
-                title: __('Generar Stickers'),
+                title: __('Create Labels'),
                 fields: [
                     {
                         fieldtype: 'Select',
                         fieldname: 'sticker_type',
-                        label: __('Estilo de sticker'),
+                        label: __('Label Style'),
                         reqd: true,
                         options: [
                             "Sticker sin fechas",
-                            "Sticker con fecha de cosecha",
-                            "Sticker con fecha de vencimiento",
-                            "Sticker con todos los datos"
+                            "105mmx155mm Serial No and EAN-13 Barcode"
                         ],
                         description: __('Seleccione el estilo de sticker que desee generar')
                     },
                     {
                         fieldtype: 'Button',
                         fieldname: 'btn_generar',
-                        label: __('Generar Stickers'),
+                        label: __('Create Labels'),
                         options: '',
                         description: __(''),
                     }
