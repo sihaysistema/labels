@@ -122,10 +122,10 @@ frappe.ui.form.on("Purchase Receipt", {
 
             // Agrega un event lister al boton del dialogo
             dialog.fields_dict.btn_generar.$wrapper.on('click', function (e) {
-                var estilo_sticker = '0';
+                var sticker_style = '0';
 
                 if (dialog.fields_dict.sticker_type.value == 'Ingreso 105mm x 155mm') {
-                    estilo_sticker = 'incoming_serial_no105x155';
+                    sticker_style = 'incoming_serial_no105x155';
                 }
                 /*
                 if (dialog.fields_dict.sticker_type.value == 'Sticker con fecha de cosecha') {
@@ -176,7 +176,7 @@ frappe.ui.form.on("Purchase Receipt", {
                     ],
                     */
                     dict_data: cur_frm.doc.items,
-                    label_format: estilo_sticker,
+                    label_format: sticker_style,
                     receipt_date: "13-07-2020"
                     
                 },
@@ -197,10 +197,12 @@ frappe.ui.form.on("Purchase Receipt", {
 frappe.ui.form.on("Delivery Note", {
     refresh: function (frm) {
 
-        // Agrega un icon-button a la barra de la pagina
+        // en_US: Adds an icon-button near the action buttons on the framework.
+        // es: Agrega un boton / icono al lado de los botones de accion del marco frappe.
         cur_frm.page.add_action_icon(__("fa fa-file-pdf-o"), function () {
 
-            // Instanciando un dialogo con sus propiedades
+            // en_US: We instantiate a dialog with its properties.
+            // es: Instanciamos el dialogo con sus propiedades.
             let dialog = new frappe.ui.Dialog({
                 title: __('Create Labels'),
                 fields: [
@@ -225,20 +227,25 @@ frappe.ui.form.on("Delivery Note", {
                 ]
             });
 
-            // Muestra el dialogo
+            // en_US: We show the dialog.
+            // es: Mostramos el diálogo.
             dialog.show();
 
-            // Agrega un event lister al boton del dialogo
+            // en_US: Adds an event listenet below the dialog
+            // es: Agrega un event lister al boton del dialogo
             dialog.fields_dict.btn_generar.$wrapper.on('click', function (e) {
-                var estilo_sticker = '0';
+                var sticker_style = '0';
 
+                // en_US: Options in the dialog assign a value to the sticker format to be called on the back end.
+                // es: Opciones en el dialogo le asignan un valor al formato de etiqueta para ser llamado en el servidor.
                 if (dialog.fields_dict.sticker_type.value == 'Empaque 105mm x 155mm') {
-                    estilo_sticker = 'outgoing_serial_no_plus_barcode';
+                    sticker_style = 'outgoing_serial_no_plus_barcode';
+                }
+                
+                if (dialog.fields_dict.sticker_type.value == 'Product Flyers 10 per serial') {
+                    sticker_style = '1';
                 }
                 /*
-                if (dialog.fields_dict.sticker_type.value == 'Sticker con fecha de cosecha') {
-                    estilo_sticker = '1';
-                }
                 if (dialog.fields_dict.sticker_type.value == 'Sticker con fecha de vencimiento') {
                     estilo_sticker = '2';
                 }
@@ -261,7 +268,7 @@ frappe.ui.form.on("Delivery Note", {
                 });
                 */
                 frappe.call({
-                method: "labels.api_labels.process_labels_2",
+                method: "labels.api_labels.delivery_note_labels",
                 args: {
                     /*
                     dict_data: cur_frm.doc.po_items,
@@ -270,10 +277,9 @@ frappe.ui.form.on("Delivery Note", {
                     expiration_date: cur_frm.doc.label_expiration_date
                     */
                    // Dummy Data
-                   dict_data: 1,
-                   sticker_type: 1,
-                   production_date: 1,
-                   expiration_date: 1
+                    dict_data: cur_frm.doc.items,
+                    label_format: sticker_style,
+                    receipt_date: "13-07-2020"
                 },
                 callback: function (r) {
                     // We show an alert that the stickers have been generated

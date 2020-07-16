@@ -51,7 +51,7 @@ from babel.numbers import format_number, format_decimal, format_percent
 # Higher width numbers move the element to the right, lower width numbers move the element left.
 # We open the configuration JSON file  TODO: Some of this must be replaced with data from database, for development purposes only.
 
-def new_create_labels_pdf(unique_item_list, receipt_date, selected_label_format="incoming_serial_no"):
+def purchase_receipt_labels_pdf(unique_item_list, receipt_date, selected_label_format="incoming_serial_no"):
     """
     selected_label_format = Must be an existing label_formats item in label_config.json!!!!!
     """
@@ -604,3 +604,5 @@ def new_create_labels_pdf(unique_item_list, receipt_date, selected_label_format=
         exception_message = _("Label creation failed")
 
         return exception_message
+
+def delivery_note_labels_pdf(unique_item_list, receipt_date, selected_label_format="incoming_serial_no"):
