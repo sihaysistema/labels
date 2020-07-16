@@ -1,0 +1,32 @@
+{
+ "autoname": "field:label_format",
+ "creation": "2020-07-15 17:56:53.201192",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "label_format"
+ ],
+ "fields": [
+  {
+   "columns": 10,
+   "fieldname": "label_format",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Label Format",
+   "options": "Label Format",
+   "unique": 1
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-07-15 20:22:16.129229",
+ "modified_by": "Administrator",
+ "module": "Labels",
+ "name": "Label Options",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

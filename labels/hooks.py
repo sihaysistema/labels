@@ -24,13 +24,25 @@ fixtures = [
             ]
         ]
     },
-        {
+    {
         "dt": "Translation", "filters": [
             [
                 "source_name", "in", [
                     "Please select the label style you wish to create",
                     "Create labels",
                     "Label style"
+                ]
+            ]
+        ]
+    },
+        {
+        "dt": "Custom Field", "filters":  [
+            [
+                "name", "in", [
+                    "Purchase Receipt-shs_labels",
+                    "Purchase Receipt-label_formats",
+                    "Delivery Note-shs_labels",
+                    "Delivery Note-label_formats"
                 ]
             ]
         ]
