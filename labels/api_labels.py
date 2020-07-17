@@ -120,7 +120,8 @@ def delivery_note_labels(dict_data, label_format, receipt_date):
             Posting date for purchase receipt.
     """
 
-    # Carga como json-diccionario la data recibida
+    # en_US: Loads the received data as if it was a json into a dictionary
+    # es: Carga como json-diccionario la data recibida
     selected_items = json.loads(dict_data)
     # frappe.msgprint(_(str(selected_items2)))
     # en_US: Declare a unique labels to print list, which will be filled with objects containing item name and serial number.

@@ -113,23 +113,54 @@
                 "left_mm": 3
             },
             "elements": [
-                {
+                                {
                     "from_top_to_bottom": 1, 
-                    "element_name": "Product", 
-                    "x_pos_mm": 1, 
-                    "y_pos_mm": 30, 
+                    "element_name": "Product Name", 
+                    "element_type": "receipt_date", 
+                    "x_pos_mm": 15, 
+                    "y_pos_mm": 120, 
                     "height_mm": 0, 
                     "width_mm": 0, 
-                    "style_name": "line4"
+                    "style_name": "line4", 
+                    "font_size": 20, 
+                    "font_name": "Helvetica" 
+                },
+                {
+                    "from_top_to_bottom": 1, 
+                    "element_name": "Product Name", 
+                    "element_type": "item_name", 
+                    "x_pos_mm": 15, 
+                    "y_pos_mm": 110, 
+                    "height_mm": 0, 
+                    "width_mm": 0, 
+                    "style_name": "line4", 
+                    "font_size": 20, 
+                    "font_name": "Helvetica" 
                 },
                 {
                     "from_top_to_bottom": 1, 
                     "element_name": "Product", 
-                    "x_pos_mm": 1, 
-                    "y_pos_mm": 30, 
+                    "element_type": "serial_no", 
+                    "element_content": "Placeholder text - Texto de ejemplo", 
+                    "x_pos_mm": 15, 
+                    "y_pos_mm": 100, 
                     "height_mm": 0, 
                     "width_mm": 0, 
-                    "style_name": "line4" 
+                    "style_name": "line4", 
+                    "font_size": 20, 
+                    "font_name": "Helvetica" 
+                },
+                {
+                    "from_top_to_bottom": 1, 
+                    "element_name": "Logo", 
+                    "element_type": "logo_image", 
+                    "x_pos_px": -150, 
+                    "y_pos_px": 365, 
+                    "height_px": 55, 
+                    "width_px": 60, 
+                    "mask": "None", 
+                    "preserveAspectRatio": "True", 
+                    "anchor": "c" 
                 }
             ]
         }

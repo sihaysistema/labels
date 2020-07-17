@@ -212,8 +212,8 @@ frappe.ui.form.on("Delivery Note", {
                         label: __('Label Style'),
                         reqd: true,
                         options: [
-                            "Ingreso 105mm x 155mm",
-                            "105mmx155mm Serial No and EAN-13 Barcode"
+                            "105mmx155mm Serial No and EAN-13 Barcode",
+                            "Product Flyers 10 per serial"
                         ],
                         description: __('Please select the label style you wish to create')
                     },
@@ -238,7 +238,7 @@ frappe.ui.form.on("Delivery Note", {
 
                 // en_US: Options in the dialog assign a value to the sticker format to be called on the back end.
                 // es: Opciones en el dialogo le asignan un valor al formato de etiqueta para ser llamado en el servidor.
-                if (dialog.fields_dict.sticker_type.value == 'Empaque 105mm x 155mm') {
+                if (dialog.fields_dict.sticker_type.value == '105mmx155mm Serial No and EAN-13 Barcode') {
                     sticker_style = 'outgoing_serial_no_plus_barcode';
                 }
                 
