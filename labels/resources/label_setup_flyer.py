@@ -1031,7 +1031,7 @@ def delivery_note_flyers_pdf(unique_item_list, receipt_date, selected_label_form
                       # en_US: If one of the elements has text, then you add it to the PDF Canvas.
                       PDFcanvas.setFont(element["font_name"], 20)
                       #PDFcanvas.roundRect(x=100, y=110, width=50, height=50, radius=5, stroke=1, fill=1, style='Blue')   
-                      PDFcanvas.roundRect(0, 625, 250, 125, 4, stroke=1, fill=1, style='Blue')
+                      PDFcanvas.roundRect(0, 5, 25, 50, 50, stroke=1, fill=1, style='Blue')
 
                       # Declare a drawing with size to act as a bg div
                       # d = Drawing(label_width_mm*mm, label_height_mm*mm)
@@ -1204,8 +1204,8 @@ def delivery_note_flyers_pdf(unique_item_list, receipt_date, selected_label_form
                       # en_US: We add the QR code to the code container
                       d.add(qr_code)
                       # en_US: We draw contents of d container with QR Code, on canvas c, at x position, y position
-                      qr_code_x_pos_mm = 5
-                      qr_code_y_pos_mm = 90
+                      qr_code_x_pos_mm = 2
+                      qr_code_y_pos_mm = 26
                       renderPDF.draw(d, PDFcanvas, qr_code_x_pos_mm*mm, qr_code_y_pos_mm*mm)
                       #c.drawImage(image, 10, 10, width=None,height=None,mask=None)
 
