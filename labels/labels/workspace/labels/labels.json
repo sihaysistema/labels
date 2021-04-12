@@ -1,0 +1,44 @@
+{
+ "category": "Modules",
+ "charts": [],
+ "creation": "2021-04-12 09:45:20.655779",
+ "developer_mode_only": 0,
+ "disable_user_customization": 0,
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "extends_another_page": 0,
+ "hide_custom": 0,
+ "icon": "tool",
+ "idx": 0,
+ "is_default": 0,
+ "is_standard": 1,
+ "label": "Labels",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Configuracion Labels",
+   "link_to": "Configuracion Labels",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "PDF Label Barcode Generator",
+   "link_to": "PDF Label Barcode Generator",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  }
+ ],
+ "modified": "2021-04-12 09:54:45.096268",
+ "modified_by": "Administrator",
+ "module": "Labels",
+ "name": "Labels",
+ "owner": "Administrator",
+ "pin_to_bottom": 1,
+ "pin_to_top": 0,
+ "shortcuts": []
+}
