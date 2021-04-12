@@ -4,4 +4,6 @@
 *.egg-info
 *.swp
 tags
-labels/docs/current
+labels/public/js/labels.min.js
+labels/public/js/labels.min.js.map
+.vscode/
